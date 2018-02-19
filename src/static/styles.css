@@ -184,13 +184,14 @@ input:focus {
 .link_group {
   display: flex;
   flex-direction: row;
-  margin: 44px 0 0 50px
+  margin: 0 0 0 50px
 }
 
 .nav_element {
   font-size: 24px;
   height: 65px;
   margin-right: 55px;
+  padding-top: 44px;
   border-bottom: 5px solid #4D4D4D;
 }
 
@@ -328,4 +329,50 @@ input:focus {
 
   font-size: 24px;
   color: #fff;
+}
+
+/**
+ * Compare styles
+**/
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  margin-top: 50px;
+}
+
+.nav_arrow {
+  font-size: 144px;
+  color: #4D4D4D;
+}
+
+.big_image {
+  width: 542px;
+  height: auto;
+}
+
+.info{
+  padding: 0;
+}
+
+.info_row {
+  font-size: 24px;
+  font-weight: 100;
+
+  margin-bottom: 13px;
+}
+
+.info>ul {
+  padding: 0;
+  list-style-type: none;
+
+  font-size: 24px;
+  font-weight: 300;
+
+  margin: 0 0 13px 0;
+}
+
+.info>ul>li {
+  font-weight: 100;
 }
