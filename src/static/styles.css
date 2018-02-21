@@ -25,6 +25,7 @@ body {
   color: #fff;
 
   transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .button:hover {
@@ -197,6 +198,7 @@ input:focus {
 
 .clickable.nav_element {
   border-bottom: 5px solid rgba(0,0,0,0);
+  cursor: pointer;
 }
 
 .clickable.nav_element:hover {
@@ -276,6 +278,7 @@ input:focus {
 
   border-radius: 10px;
   transition: box-shadow 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .image:hover {
@@ -293,6 +296,7 @@ input:focus {
   top: 7px;
   left: 0;
   font-size: 26px;
+  cursor: pointer;
 
   width: 29px;
   height: 29px;
@@ -345,6 +349,7 @@ input:focus {
 .nav_arrow {
   font-size: 144px;
   color: #4D4D4D;
+  cursor: pointer;
 }
 
 .big_image {
