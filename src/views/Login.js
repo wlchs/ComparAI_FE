@@ -20,7 +20,9 @@ class Login extends Component {
 
     return (
       <LoginFormComponent
-        setToken={setToken} />
+        user={this.props.user}
+        setToken={setToken}
+        history={this.props.history} />
     );
   }
 }

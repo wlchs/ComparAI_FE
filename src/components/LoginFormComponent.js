@@ -12,11 +12,19 @@ export default class LoginFormComponent extends Component {
       password: undefined
     };
 
-    console.log(props);
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+  }
+
+  componentDidMount() {
+    if (sessionStorage.getItem('access_token')) {
+      this.login();
+    }
+  }
+
+  login() {
+    this.props.history.push('/photos');
   }
 
   handleSubmit(event) {
@@ -29,6 +37,8 @@ export default class LoginFormComponent extends Component {
     .then(response => {
       console.log(response);
       this.props.setToken(response.data.token);
+      sessionStorage.setItem('access_token', response.data.token);
+      this.login();
     })
     .catch(err => {
       console.log(err);

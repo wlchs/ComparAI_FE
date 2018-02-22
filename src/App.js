@@ -12,6 +12,7 @@ import { createStore } from 'redux';
 import UserReducer from './reducers/user';
 
 import Login from './views/Login';
+import Photos from './views/Photos';
 
 const store = createStore(
   UserReducer
@@ -25,6 +26,7 @@ class App extends Component {
           <Switch>
             <Redirect exact from='/' to='/login'/>
             <Route path='/login' component={Login}/>
+            <Route path='/photos' component={Photos}/>
           </Switch>
         </BrowserRouter>
       </Provider>
