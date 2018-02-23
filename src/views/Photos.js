@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
 
+import Navbar from '../components/Navbar';
+
 export default class Photos extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    if (!sessionStorage.getItem('access_token')) {
+      this.props.history.push('/');
+    }
+  }
+
   render() {
     return (
       <div>
-        <div className="navbar">
-          <div className="link_group">
-            <div className="nav_element">
-              Fényképeim
-            </div>
-            <div className="clickable nav_element">
-              Kategóriák
-            </div>
-            <div className="clickable nav_element">
-              Összehasonlítás
-            </div>
-          </div>
-          <div className="link_group">
-            <div className="clickable nav_element logout">
-              Kijelentkezés
-            </div>
-          </div>
-        </div>
+        <Navbar />
         <div className="menu_bar">
           <div className="filter small button">
             <div className="center">

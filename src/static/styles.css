@@ -193,18 +193,20 @@ input:focus {
   height: 65px;
   margin-right: 55px;
   padding-top: 44px;
-  border-bottom: 5px solid #4D4D4D;
+  border-bottom: 5px solid rgba(0,0,0,0);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 
   transition: border-color 0.2s ease-in;
 }
 
-.clickable.nav_element {
-  border-bottom: 5px solid rgba(0,0,0,0);
-  cursor: pointer;
+.nav_element:hover {
+  border-bottom: 5px solid #A8A8A8;
 }
 
-.clickable.nav_element:hover {
-  border-bottom: 5px solid #A8A8A8;
+.nav_element.active {
+  border-bottom: 5px solid #4D4D4D;
 }
 
 .nav_element.logout {
@@ -212,7 +214,7 @@ input:focus {
   border-bottom: 5px solid rgba(0, 0, 0, 0);
 }
 
-.clickable.nav_element.logout:hover {
+.nav_element.logout:hover {
   border-bottom: 5px solid #D98784;
 }
 

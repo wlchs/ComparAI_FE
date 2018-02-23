@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as UserActionCreators from '../actions/user';
 
-import LoginFormComponent from '../components/LoginFormComponent';
+import LogoutComponent from '../components/LogoutComponent';
 
-class Login extends Component {
+class Logout extends Component {
 
   static propTypes = {
     user: propTypes.object.isRequired
@@ -15,12 +15,12 @@ class Login extends Component {
 
   render() {
     const {dispatch, user} = this.props;
-    const setToken = bindActionCreators(UserActionCreators.setToken, dispatch);
+    const resetToken = bindActionCreators(UserActionCreators.resetToken, dispatch);
 
     return (
-      <LoginFormComponent
+      <LogoutComponent
         user={this.props.user}
-        setToken={setToken}
+        resetToken={resetToken}
         history={this.props.history} />
     );
   }
@@ -31,4 +31,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(Logout);
