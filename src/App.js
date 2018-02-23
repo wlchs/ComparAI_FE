@@ -10,7 +10,7 @@ import propTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as UserActionCreators from './actions/user';
+import * as ImageActionCreators from './actions/image';
 
 import Login from './views/Login';
 import Logout from './views/Logout';
@@ -19,14 +19,15 @@ import Photos from './views/Photos';
 class App extends Component {
 
   static propTypes = {
-    user: propTypes.object.isRequired
+    images: propTypes.array.isRequired
   };
 
   render() {
 
-    const {dispatch, user} = this.props;
-    const setToken = bindActionCreators(UserActionCreators.setToken, dispatch);
-    const resetToken = bindActionCreators(UserActionCreators.resetToken, dispatch);
+    const {dispatch, images} = this.props;
+    const addImage = bindActionCreators(ImageActionCreators.addImage, dispatch);
+    const modifyImage = bindActionCreators(ImageActionCreators.modifyImage, dispatch);
+    const removeImage = bindActionCreators(ImageActionCreators.removeImage, dispatch);
 
     return (
         <BrowserRouter>
@@ -34,14 +35,21 @@ class App extends Component {
             <Redirect exact from='/' to='/login'/>
 
             <Route path='/login' render={ props => (
-              <Login {...props} setToken={setToken}/>
+              <Login {...props} />
             )}/>
 
             <Route path='/logout' render={ props => (
-              <Logout {...props} resetToken={resetToken}/>
+              <Logout {...props} />
             )}/>
 
-            <Route path='/photos' component={Photos}/>
+            <Route path='/photos' render={ props => (
+              <Photos {...props}
+                selectedCategory=""
+                images={this.props.images}
+                addImage={addImage}
+                modifyImage={modifyImage}
+                removeImage={removeImage} />
+            )}/>
 
           </Switch>
         </BrowserRouter>
@@ -50,7 +58,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state
+  images: state
 });
 
 

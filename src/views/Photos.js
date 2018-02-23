@@ -4,6 +4,7 @@ import __PATH from '../environments';
 
 import Navbar from '../components/Navbar';
 import Menubar from '../components/Menubar';
+import ImageCard from '../components/ImageCard';
 
 export default class Photos extends Component {
 
@@ -17,6 +18,8 @@ export default class Photos extends Component {
     };
 
     this.access_token = sessionStorage.getItem('access_token');
+
+    this.selectImage = this.selectImage.bind(this);
   }
 
   componentDidMount() {
@@ -24,21 +27,61 @@ export default class Photos extends Component {
       this.props.history.push('/');
     }
 
-    this.categoryListRequest = axios.get(`${__PATH}/getImageById/5a8f03dc1abdda551aa19b0f`,{
+    this.imagesRequest = axios.get(`${__PATH}/getImagesByCategory/${this.props.selectedCategory}`,{
+      headers: {'Authorization': `Bearer: ${this.access_token}`}
+    })
+      .then(response => {
+        console.log(response);
+        this.handleResponse(response.data.images);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+    /*this.categoryListRequest = axios.get(`${__PATH}/getImageById/5a8f03dc1abdda551aa19b0f`,{
       headers: {'Authorization': `Bearer: ${this.access_token}`},
       responseType: 'arraybuffer'
     })
-      .then(response => new Buffer(response.data, 'binary').toString('base64'))
+      .then(response => {
+        const header = response.headers["content-type"];
+        const data = new Buffer(response.data, 'binary').toString('base64');
+        return `data:${header};base64,${data}`;
+      })
       .then(encoded => this.setState({
-        img: <img src={"data:image/jpeg;base64," + encoded} />
+        img: <img src={encoded} />
       }))
       .catch(err => {
         console.log(err);
       });
-
+    */
   }
 
-  componentWillUnmount() {
+  handleResponse(imageArray) {
+    imageArray.forEach(image => {
+      if(!this.props.images.includes(image)) {
+        const imageFormat = image.contentType;
+        const data = new Buffer(image.data, 'binary').toString('base64');
+        this.props.addImage({
+          ...image,
+          selected: false,
+          data: `data:${imageFormat};base64,${data}`
+        });
+      }
+    });
+  }
+
+  selectImage(imageId) {
+    let selected = this.props.images.filter(image => {
+      return image.id === imageId;
+    })[0];
+    const id = this.props.images.indexOf(selected);
+
+    selected = {
+      ...selected,
+      selected: !selected.selected
+    }
+
+    this.props.modifyImage(selected, id);
   }
 
   render() {
@@ -46,104 +89,16 @@ export default class Photos extends Component {
       <div>
         <Navbar />
         <Menubar />
-        {this.state.img}
         <div className="images">
-          <div className="card">
-            <img className="image" src="http://via.placeholder.com/500x500?text=Image" />
-            <div className="footer">
-              <div className="checkbox">
-                X
-              </div>
-              <div className="info">
-                <div className="title">
-                  Lorem ipsum
-                </div>
-                <div className="date">
-                  2018.02.17
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <img className="image" src="http://via.placeholder.com/500x500?text=Image" />
-            <div className="footer">
-              <div className="checkbox">
-                X
-              </div>
-              <div className="info">
-                <div className="title">
-                  Lorem ipsum
-                </div>
-                <div className="date">
-                  2018.02.17
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <img className="image" src="http://via.placeholder.com/500x500?text=Image" />
-            <div className="footer">
-              <div className="checkbox">
-
-              </div>
-              <div className="info">
-                <div className="title">
-                  Lorem ipsum
-                </div>
-                <div className="date">
-                  2018.02.17
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <img className="image" src="http://via.placeholder.com/500x500?text=Image" />
-            <div className="footer">
-              <div className="checkbox">
-
-              </div>
-              <div className="info">
-                <div className="title">
-                  Lorem ipsum
-                </div>
-                <div className="date">
-                  2018.02.17
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <img className="image" src="http://via.placeholder.com/500x500?text=Image" />
-            <div className="footer">
-              <div className="checkbox">
-
-              </div>
-              <div className="info">
-                <div className="title">
-                  Lorem ipsum
-                </div>
-                <div className="date">
-                  2018.02.17
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <img className="image" src="http://via.placeholder.com/500x500?text=Image" />
-            <div className="footer">
-              <div className="checkbox">
-
-              </div>
-              <div className="info">
-                <div className="title">
-                  Lorem ipsum
-                </div>
-                <div className="date">
-                  2018.02.17
-                </div>
-              </div>
-            </div>
-          </div>
+          {this.props.images.map(image =>
+            <ImageCard key={image.id}
+              id={image.id}
+              name={image.name}
+              date={image.date.split('T')[0]}
+              img={image.data}
+              selectImage={this.selectImage}
+              selected={image.selected} />
+          )}
         </div>
       </div>
     );

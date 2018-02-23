@@ -38,7 +38,6 @@ export default class Login extends Component {
     })
     .then(response => {
       console.log(response);
-      this.props.setToken(response.data.token);
       sessionStorage.setItem('access_token', response.data.token);
       this.login();
     })

@@ -7,10 +7,10 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import UserReducer from './reducers/user';
+import ImageReducer from './reducers/image';
 
 const store = createStore(
-  UserReducer
+  ImageReducer
 );
 
 ReactDOM.render(
