@@ -18,9 +18,26 @@ import Photos from './views/Photos';
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedCategory: ""
+    }
+
+    this.changeCategory = this.changeCategory.bind(this);
+  }
+
   static propTypes = {
     images: propTypes.array.isRequired
   };
+
+  changeCategory(categoryName) {
+    this.setState(state => {
+      return this.state.selectedCategory === categoryName ?
+        null : {selectedCategory: categoryName};
+    });
+  }
 
   render() {
 
@@ -28,6 +45,7 @@ class App extends Component {
     const addImage = bindActionCreators(ImageActionCreators.addImage, dispatch);
     const modifyImage = bindActionCreators(ImageActionCreators.modifyImage, dispatch);
     const removeImage = bindActionCreators(ImageActionCreators.removeImage, dispatch);
+    const removeAll = bindActionCreators(ImageActionCreators.removeAll, dispatch);
 
     return (
         <BrowserRouter>
@@ -44,11 +62,13 @@ class App extends Component {
 
             <Route path='/photos' render={ props => (
               <Photos {...props}
-                selectedCategory=""
+                selectedCategory={this.state.selectedCategory}
+                changeCategory={this.changeCategory}
                 images={this.props.images}
                 addImage={addImage}
                 modifyImage={modifyImage}
-                removeImage={removeImage} />
+                removeImage={removeImage}
+                removeAll={removeAll} />
             )}/>
 
           </Switch>

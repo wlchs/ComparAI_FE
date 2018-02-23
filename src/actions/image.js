@@ -21,3 +21,9 @@ export const removeImage = id => {
     id
   };
 };
+
+export const removeAll = () => {
+  return {
+    type: ImageActionTypes.REMOVE_ALL
+  };
+};

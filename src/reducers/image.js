@@ -24,6 +24,9 @@ export default function Image(state=initialState, action) {
         ...state.slice(action.id + 1),
       ];
 
+    case ImageActionTypes.REMOVE_ALL:
+      return [];
+
     default:
       return state;
   }

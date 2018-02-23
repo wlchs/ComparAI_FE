@@ -11,14 +11,8 @@ export default class Photos extends Component {
   constructor(props) {
     super(props);
 
-    const img = <img src='http://via.placeholder.com/350x150' />;
-
-    this.state = {
-      img: img
-    };
-
     this.access_token = sessionStorage.getItem('access_token');
-
+    this.loadContent = this.loadContent.bind(this);
     this.selectImage = this.selectImage.bind(this);
   }
 
@@ -27,6 +21,10 @@ export default class Photos extends Component {
       this.props.history.push('/');
     }
 
+    this.loadContent();
+  }
+
+  loadContent() {
     this.imagesRequest = axios.get(`${__PATH}/getImagesByCategory/${this.props.selectedCategory}`,{
       headers: {'Authorization': `Bearer: ${this.access_token}`}
     })
@@ -37,26 +35,11 @@ export default class Photos extends Component {
       .catch(err => {
         console.log(err);
       })
-
-    /*this.categoryListRequest = axios.get(`${__PATH}/getImageById/5a8f03dc1abdda551aa19b0f`,{
-      headers: {'Authorization': `Bearer: ${this.access_token}`},
-      responseType: 'arraybuffer'
-    })
-      .then(response => {
-        const header = response.headers["content-type"];
-        const data = new Buffer(response.data, 'binary').toString('base64');
-        return `data:${header};base64,${data}`;
-      })
-      .then(encoded => this.setState({
-        img: <img src={encoded} />
-      }))
-      .catch(err => {
-        console.log(err);
-      });
-    */
   }
 
   handleResponse(imageArray) {
+    this.props.removeAll();
+
     imageArray.forEach(image => {
       if(!this.props.images.includes(image)) {
         const imageFormat = image.contentType;
@@ -85,10 +68,37 @@ export default class Photos extends Component {
   }
 
   render() {
+
+    let categories = {};
+    this.props.images.forEach(
+      image => {
+        let categorySet = new Set();
+
+        image.categories.forEach(
+          imageService => imageService.categories.forEach(
+            label => {
+              categorySet.add(label);
+            }
+          )
+        );
+
+        categorySet.forEach(
+          label => categories[label] = categories[label] + 1 || 1
+        );
+      }
+    );
+
+    categories = Object.keys(categories).map(key => {
+      return {name: key, count: categories[key]};
+    });
+
     return (
       <div>
         <Navbar />
-        <Menubar />
+        <Menubar
+          selectedCategory={this.props.selectedCategory}
+          changeCategory={this.props.changeCategory}
+          categories={categories}/>
         <div className="images">
           {this.props.images.map(image =>
             <ImageCard key={image.id}

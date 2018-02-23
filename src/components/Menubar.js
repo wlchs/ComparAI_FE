@@ -1,14 +1,14 @@
 import React from 'react';
 
+import Dropdown from './Dropdown';
+
 const Menubar = props => {
   return (
     <div className="menu_bar">
-      <div className="filter small button">
-        <div className="center">
-          Összes kép
-        </div>
-        <div className="filter dropdown"></div>
-      </div>
+      <Dropdown
+        selectedCategory={props.selectedCategory}
+        categories={props.categories}
+        changeCategory={props.changeCategory} />
       <div className="small button success text">
         Új kép hozzáadása
       </div>
