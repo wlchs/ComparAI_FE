@@ -6,34 +6,52 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import propTypes from 'prop-types';
 
-import UserReducer from './reducers/user';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as UserActionCreators from './actions/user';
 
 import Login from './views/Login';
 import Logout from './views/Logout';
 import Photos from './views/Photos';
 
-const store = createStore(
-  UserReducer
-);
-
 class App extends Component {
+
+  static propTypes = {
+    user: propTypes.object.isRequired
+  };
+
   render() {
+
+    const {dispatch, user} = this.props;
+    const setToken = bindActionCreators(UserActionCreators.setToken, dispatch);
+    const resetToken = bindActionCreators(UserActionCreators.resetToken, dispatch);
+
     return (
-      <Provider store={store}>
         <BrowserRouter>
           <Switch>
             <Redirect exact from='/' to='/login'/>
-            <Route path='/login' component={Login}/>
-            <Route path='/logout' component={Logout}/>
+
+            <Route path='/login' render={ props => (
+              <Login {...props} setToken={setToken}/>
+            )}/>
+
+            <Route path='/logout' render={ props => (
+              <Logout {...props} resetToken={resetToken}/>
+            )}/>
+
             <Route path='/photos' component={Photos}/>
+
           </Switch>
         </BrowserRouter>
-      </Provider>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  user: state
+});
+
+
+export default connect(mapStateToProps)(App);

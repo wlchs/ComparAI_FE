@@ -1,34 +1,71 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as UserActionCreators from '../actions/user';
+import axios from 'axios';
+import __PATH from '../environments';
 
 import LoginFormComponent from '../components/LoginFormComponent';
 
-class Login extends Component {
+export default class Login extends Component {
 
-  static propTypes = {
-    user: propTypes.object.isRequired
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: undefined,
+      password: undefined
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
+  }
+
+  componentDidMount() {
+    if (sessionStorage.getItem('access_token')) {
+      this.login();
+    }
+  }
+
+  login() {
+    this.props.history.push('/photos');
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    axios.post(`${__PATH}/auth`, {
+      userId: this.state.email,
+      password_hash: this.state.password
+    })
+    .then(response => {
+      console.log(response);
+      this.props.setToken(response.data.token);
+      sessionStorage.setItem('access_token', response.data.token);
+      this.login();
+    })
+    .catch(err => {
+      console.log(err);
+      // notification
+    });
+  }
+
+  handleEmail(event) {
+    this.setState({
+      email: event.target.value
+    });
+  }
+
+  handlePassword(event) {
+    this.setState({
+      password: event.target.value
+    });
+  }
 
   render() {
-    const {dispatch, user} = this.props;
-    const setToken = bindActionCreators(UserActionCreators.setToken, dispatch);
-
     return (
       <LoginFormComponent
-        user={this.props.user}
-        setToken={setToken}
-        history={this.props.history} />
+        handleEmail={this.handleEmail}
+        handlePassword={this.handlePassword}
+        handleSubmit={this.handleSubmit}/>
     );
   }
 }
-
-const mapStateToProps = state => ({
-  user: state
-});
-
-
-export default connect(mapStateToProps)(Login);
