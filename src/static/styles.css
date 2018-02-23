@@ -278,7 +278,8 @@ input:focus {
 
 .image {
   width: 252px;
-  height: auto;
+  height: 252px;
+  object-fit: cover;
 
   border-radius: 10px;
   transition: box-shadow 0.2s ease-in-out;
