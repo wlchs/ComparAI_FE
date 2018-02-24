@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-import { BounceLoader } from 'react-spinners';
+import { PulseLoader } from 'react-spinners';
 
 import propTypes from 'prop-types';
 
@@ -73,13 +73,15 @@ class App extends Component {
 
           </Switch>
         </BrowserRouter>
-        <div className="loadingSpinner">
-          <BounceLoader
-            color={'#4D4D4D'}
-            loading={this.state.loading}
-            size={200}
-          />
-        </div>
+        {this.state.loading ?
+          <div className="loadingSpinner">
+            <PulseLoader
+              color={'#F0F0F0'}
+              size={50}
+            />
+            <div>Loading...</div>
+          </div>
+        : null}
       </div>
     );
   }
