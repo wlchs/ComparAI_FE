@@ -73,8 +73,9 @@ export default class Categories extends Component {
                 if (!categories[category]) {
                   categories[category] = [];
                 }
-                !categories[category].includes(image.data) ?
-                  categories[category].push(image.data) : null;
+                if (!categories[category].includes(image.data)) {
+                  categories[category].push(image.data);                  
+                }
               }
             );
           }
