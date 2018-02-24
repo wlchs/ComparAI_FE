@@ -3,7 +3,7 @@ import React from 'react';
 const CategoryCard = props => {
   return (
     <div className="card">
-      <div className="image mozaik_container">
+      <div className="image mozaik_container" onClick={() => {props.onClick(props.name)}}>
         {props.images[0] ? <img className="mozaik" src={props.images[0]} alt="0" /> : null}
         {props.images[1] ? <img className="mozaik" src={props.images[1]} alt="1" /> : null}
         {props.images[2] ? <img className="mozaik" src={props.images[2]} alt="2" /> : null}

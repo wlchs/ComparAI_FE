@@ -17,6 +17,7 @@ export default class Categories extends Component {
     this.access_token = sessionStorage.getItem('access_token');
     this.loadContent = this.loadContent.bind(this);
     this.populateCategories = this.populateCategories.bind(this);
+    this.changeCategory = this.changeCategory.bind(this);
   }
 
   componentDidMount() {
@@ -74,7 +75,7 @@ export default class Categories extends Component {
                   categories[category] = [];
                 }
                 if (!categories[category].includes(image.data)) {
-                  categories[category].push(image.data);                  
+                  categories[category].push(image.data);
                 }
               }
             );
@@ -92,6 +93,11 @@ export default class Categories extends Component {
     });
   }
 
+  changeCategory(categoryName) {
+    this.props.changeCategory(categoryName);
+    this.props.history.push('/photos');
+  }
+
   render() {
 
     return (
@@ -101,7 +107,8 @@ export default class Categories extends Component {
           {this.state.categories.map(category =>
             <CategoryCard key={category.category}
               name={category.category}
-              images={category.images} />
+              images={category.images}
+              onClick={this.changeCategory} />
           )}
         </div>
       </div>

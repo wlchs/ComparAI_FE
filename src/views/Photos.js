@@ -11,16 +11,11 @@ export default class Photos extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      selectedCategory: ""
-    };
-
     this.access_token = sessionStorage.getItem('access_token');
     this.loadContent = this.loadContent.bind(this);
     this.uploadNew = this.uploadNew.bind(this);
     this.deleteSelected = this.deleteSelected.bind(this);
     this.selectImage = this.selectImage.bind(this);
-    this.changeCategory = this.changeCategory.bind(this);
   }
 
   componentDidMount() {
@@ -124,13 +119,6 @@ export default class Photos extends Component {
     this.props.modifyImage(selected, id);
   }
 
-  changeCategory(categoryName) {
-    this.setState(state => {
-      return this.state.selectedCategory === categoryName ?
-        null : {selectedCategory: categoryName};
-    });
-  }
-
   containsCategory(image, selectedCategory) {
     return image.categories.some(categoryProvider =>
       (selectedCategory === "" || categoryProvider.categories.includes(selectedCategory)));
@@ -162,15 +150,15 @@ export default class Photos extends Component {
     });
 
     const filteredImages = this.props.images.filter(image => {
-      return this.containsCategory(image, this.state.selectedCategory);
+      return this.containsCategory(image, this.props.selectedCategory);
     });
 
     return (
       <div>
         <Navbar />
         <Menubar
-          selectedCategory={this.state.selectedCategory}
-          changeCategory={this.changeCategory}
+          selectedCategory={this.props.selectedCategory}
+          changeCategory={this.props.changeCategory}
           categories={categories}
           uploadNew={this.uploadNew}
           deleteSelected={this.deleteSelected} />

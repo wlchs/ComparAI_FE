@@ -27,15 +27,24 @@ class App extends Component {
     super(props);
 
     this.state = {
-      loading: false
+      loading: false,
+      selectedCategory: ""
     }
 
+    this.changeCategory = this.changeCategory.bind(this);
     this.toggleLoading = this.toggleLoading.bind(this);
+  }
+
+  changeCategory(categoryName) {
+    this.setState(state => {
+      return this.state.selectedCategory === categoryName ?
+        null : {...state, selectedCategory: categoryName};
+    });
   }
 
   toggleLoading(loading) {
     this.setState(state => {
-      return state.loading !== loading ? { loading } : null;
+      return state.loading !== loading ? {...state, loading } : null;
     });
   }
 
@@ -64,6 +73,7 @@ class App extends Component {
             <Route path='/photos' render={ props => (
               <Photos {...props}
                 changeCategory={this.changeCategory}
+                selectedCategory={this.state.selectedCategory}
                 images={images}
                 addImage={addImage}
                 modifyImage={modifyImage}
@@ -74,6 +84,7 @@ class App extends Component {
 
             <Route path='/categories' render={ props => (
               <Categories {...props}
+                changeCategory={this.changeCategory}
                 images={images}
                 addImage={addImage}
                 removeAll={removeAll}
