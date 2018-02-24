@@ -73,7 +73,7 @@ export default class Photos extends Component {
     }
 
     const data = { id };
-/*
+
     axios.delete(`${__PATH}/deleteMultipleImages/`, {
       headers: {'Authorization': `Bearer: ${this.access_token}`},
       data
@@ -83,7 +83,7 @@ export default class Photos extends Component {
       })
       .catch(err => {
         console.log(err);
-      })*/
+      })
   }
 
   handleResponse(imageArray) {
