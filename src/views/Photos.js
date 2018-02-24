@@ -18,6 +18,7 @@ export default class Photos extends Component {
     this.access_token = sessionStorage.getItem('access_token');
     this.loadContent = this.loadContent.bind(this);
     this.uploadNew = this.uploadNew.bind(this);
+    this.deleteSelected = this.deleteSelected.bind(this);
     this.selectImage = this.selectImage.bind(this);
     this.changeCategory = this.changeCategory.bind(this);
   }
@@ -61,6 +62,28 @@ export default class Photos extends Component {
       .catch(err => {
         console.log(err);
       })
+  }
+
+  deleteSelected() {
+    const id = this.props.images.filter(image => image.selected)
+      .map(image => image.id);
+
+    if (!id.length) {
+      return;
+    }
+
+    const data = { id };
+/*
+    axios.delete(`${__PATH}/deleteMultipleImages/`, {
+      headers: {'Authorization': `Bearer: ${this.access_token}`},
+      data
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      })*/
   }
 
   handleResponse(imageArray) {
@@ -141,7 +164,8 @@ export default class Photos extends Component {
           selectedCategory={this.state.selectedCategory}
           changeCategory={this.changeCategory}
           categories={categories}
-          uploadNew={this.uploadNew} />
+          uploadNew={this.uploadNew}
+          deleteSelected={this.deleteSelected} />
         <div className="images">
           {filteredImages.map(image =>
             <ImageCard key={image.id}

@@ -37,7 +37,7 @@ export default class Menubar extends Component {
             onChange={this.sendFile}
             accept="image/*" />
         </div>
-        <div className="small button error text">
+        <div className="small button error text" onClick={this.props.deleteSelected}>
           Kijelöltek törlése
         </div>
       </div>
