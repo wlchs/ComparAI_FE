@@ -47,15 +47,12 @@ export default class Dropdown extends Component {
   }
 
   hideDropdown() {
-    console.log('mivanma');
     this.setState({
       visible: false
     });
   }
 
   render() {
-    console.log(this.props.categories);
-
     const list =
       <div className="dropdown_frame">
         <div className="dropdown_element"

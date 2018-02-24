@@ -11,9 +11,14 @@ export default class Photos extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      selectedCategory: ""
+    };
+
     this.access_token = sessionStorage.getItem('access_token');
     this.loadContent = this.loadContent.bind(this);
     this.selectImage = this.selectImage.bind(this);
+    this.changeCategory = this.changeCategory.bind(this);
   }
 
   componentDidMount() {
@@ -25,7 +30,7 @@ export default class Photos extends Component {
   }
 
   loadContent() {
-    this.imagesRequest = axios.get(`${__PATH}/getImagesByCategory/${this.props.selectedCategory}`,{
+    this.imagesRequest = axios.get(`${__PATH}/getImagesByCategory/`,{
       headers: {'Authorization': `Bearer: ${this.access_token}`}
     })
       .then(response => {
@@ -43,7 +48,7 @@ export default class Photos extends Component {
     imageArray.forEach(image => {
       if(!this.props.images.includes(image)) {
         const imageFormat = image.contentType;
-        const data = new Buffer(image.data, 'binary').toString('base64');
+        const data = new Buffer(image.thumbnail, 'binary').toString('base64');
         this.props.addImage({
           ...image,
           selected: false,
@@ -65,6 +70,18 @@ export default class Photos extends Component {
     }
 
     this.props.modifyImage(selected, id);
+  }
+
+  changeCategory(categoryName) {
+    this.setState(state => {
+      return this.state.selectedCategory === categoryName ?
+        null : {selectedCategory: categoryName};
+    });
+  }
+
+  containsCategory(image, selectedCategory) {
+    return image.categories.some(categoryProvider =>
+      (selectedCategory === "" || categoryProvider.categories.includes(selectedCategory)));
   }
 
   render() {
@@ -92,15 +109,19 @@ export default class Photos extends Component {
       return {name: key, count: categories[key]};
     });
 
+    const filteredImages = this.props.images.filter(image => {
+      return this.containsCategory(image, this.state.selectedCategory);
+    });
+
     return (
       <div>
         <Navbar />
         <Menubar
-          selectedCategory={this.props.selectedCategory}
-          changeCategory={this.props.changeCategory}
+          selectedCategory={this.state.selectedCategory}
+          changeCategory={this.changeCategory}
           categories={categories}/>
         <div className="images">
-          {this.props.images.map(image =>
+          {filteredImages.map(image =>
             <ImageCard key={image.id}
               id={image.id}
               name={image.name}

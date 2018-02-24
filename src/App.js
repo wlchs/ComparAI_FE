@@ -17,27 +17,9 @@ import Logout from './views/Logout';
 import Photos from './views/Photos';
 
 class App extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedCategory: ""
-    }
-
-    this.changeCategory = this.changeCategory.bind(this);
-  }
-
   static propTypes = {
     images: propTypes.array.isRequired
   };
-
-  changeCategory(categoryName) {
-    this.setState(state => {
-      return this.state.selectedCategory === categoryName ?
-        null : {selectedCategory: categoryName};
-    });
-  }
 
   render() {
 
@@ -62,9 +44,8 @@ class App extends Component {
 
             <Route path='/photos' render={ props => (
               <Photos {...props}
-                selectedCategory={this.state.selectedCategory}
                 changeCategory={this.changeCategory}
-                images={this.props.images}
+                images={images}
                 addImage={addImage}
                 modifyImage={modifyImage}
                 removeImage={removeImage}
