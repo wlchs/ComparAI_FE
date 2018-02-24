@@ -32,6 +32,8 @@ export default class Photos extends Component {
   }
 
   loadContent() {
+    this.props.toggleLoading(true);
+
     axios.get(`${__PATH}/getImagesByCategory/`,{
       headers: {'Authorization': `Bearer: ${this.access_token}`}
     })
@@ -42,6 +44,7 @@ export default class Photos extends Component {
       .catch(err => {
         console.log(err);
       })
+      .finally(() => this.props.toggleLoading(false));
   }
 
   uploadNew(imageFile) {
@@ -49,6 +52,8 @@ export default class Photos extends Component {
 
     data.append('image', imageFile);
     data.append('name', imageFile.name);
+
+    this.props.toggleLoading(true);
 
     axios.post(`${__PATH}/uploadSingle/`, data, {
       headers: {'Authorization': `Bearer: ${this.access_token}`}
@@ -60,6 +65,7 @@ export default class Photos extends Component {
       .catch(err => {
         console.log(err);
       })
+      .finally(() => this.props.toggleLoading(false));
   }
 
   deleteSelected() {
@@ -72,6 +78,8 @@ export default class Photos extends Component {
 
     const data = { id };
 
+    this.props.toggleLoading(true);
+
     axios.delete(`${__PATH}/deleteMultipleImages/`, {
       headers: {'Authorization': `Bearer: ${this.access_token}`},
       data
@@ -83,6 +91,7 @@ export default class Photos extends Component {
       .catch(err => {
         console.log(err);
       })
+      .finally(() => this.props.toggleLoading(false));
   }
 
   handleResponse(imageArray) {

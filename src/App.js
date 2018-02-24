@@ -5,6 +5,7 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
+import { BounceLoader } from 'react-spinners';
 
 import propTypes from 'prop-types';
 
@@ -21,6 +22,22 @@ class App extends Component {
     images: propTypes.array.isRequired
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: false
+    }
+
+    this.toggleLoading = this.toggleLoading.bind(this);
+  }
+
+  toggleLoading(loading) {
+    this.setState(state => {
+      return state.loading !== loading ? { loading } : null;
+    });
+  }
+
   render() {
 
     const {dispatch, images} = this.props;
@@ -30,6 +47,7 @@ class App extends Component {
     const removeAll = bindActionCreators(ImageActionCreators.removeAll, dispatch);
 
     return (
+      <div>
         <BrowserRouter>
           <Switch>
             <Redirect exact from='/' to='/login'/>
@@ -49,11 +67,20 @@ class App extends Component {
                 addImage={addImage}
                 modifyImage={modifyImage}
                 removeImage={removeImage}
-                removeAll={removeAll} />
+                removeAll={removeAll}
+                toggleLoading={this.toggleLoading} />
             )}/>
 
           </Switch>
         </BrowserRouter>
+        <div className="loadingSpinner">
+          <BounceLoader
+            color={'#4D4D4D'}
+            loading={this.state.loading}
+            size={200}
+          />
+        </div>
+      </div>
     );
   }
 }
