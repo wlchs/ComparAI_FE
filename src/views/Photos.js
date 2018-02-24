@@ -50,8 +50,6 @@ export default class Photos extends Component {
     data.append('image', imageFile);
     data.append('name', imageFile.name);
 
-    console.log(data);
-
     axios.post(`${__PATH}/uploadSingle/`, data, {
       headers: {'Authorization': `Bearer: ${this.access_token}`}
     })
@@ -80,6 +78,7 @@ export default class Photos extends Component {
     })
       .then(response => {
         console.log(response);
+        this.loadContent();
       })
       .catch(err => {
         console.log(err);
