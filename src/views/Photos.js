@@ -17,6 +17,7 @@ export default class Photos extends Component {
 
     this.access_token = sessionStorage.getItem('access_token');
     this.loadContent = this.loadContent.bind(this);
+    this.uploadNew = this.uploadNew.bind(this);
     this.selectImage = this.selectImage.bind(this);
     this.changeCategory = this.changeCategory.bind(this);
   }
@@ -30,12 +31,32 @@ export default class Photos extends Component {
   }
 
   loadContent() {
-    this.imagesRequest = axios.get(`${__PATH}/getImagesByCategory/`,{
+    axios.get(`${__PATH}/getImagesByCategory/`,{
       headers: {'Authorization': `Bearer: ${this.access_token}`}
     })
       .then(response => {
         console.log(response);
         this.handleResponse(response.data.images);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  uploadNew(imageFile) {
+    let data = new FormData();
+
+    data.append('image', imageFile);
+    data.append('name', imageFile.name);
+
+    console.log(data);
+
+    axios.post(`${__PATH}/uploadSingle/`, data, {
+      headers: {'Authorization': `Bearer: ${this.access_token}`}
+    })
+      .then(response => {
+        console.log(response);
+        this.loadContent();
       })
       .catch(err => {
         console.log(err);
@@ -119,7 +140,8 @@ export default class Photos extends Component {
         <Menubar
           selectedCategory={this.state.selectedCategory}
           changeCategory={this.changeCategory}
-          categories={categories}/>
+          categories={categories}
+          uploadNew={this.uploadNew} />
         <div className="images">
           {filteredImages.map(image =>
             <ImageCard key={image.id}
