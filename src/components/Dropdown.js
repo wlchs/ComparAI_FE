@@ -8,8 +8,7 @@ export default class Dropdown extends Component {
       visible: false
     };
 
-    this.showDropdown = this.showDropdown.bind(this);
-    this.hideDropdown = this.hideDropdown.bind(this);
+    this.toggleDropdown = this.toggleDropdown.bind(this);
     this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
@@ -40,15 +39,9 @@ export default class Dropdown extends Component {
     }
   }
 
-  showDropdown() {
+  toggleDropdown() {
     this.setState({
-      visible: true
-    });
-  }
-
-  hideDropdown() {
-    this.setState({
-      visible: false
+      visible: !this.state.visible
     });
   }
 
@@ -68,7 +61,7 @@ export default class Dropdown extends Component {
       </div>;
 
     return (
-      <div className="filter small button" onClick={this.showDropdown} ref={this.setWrapperRef}>
+      <div className="filter small button" onClick={this.toggleDropdown} ref={this.setWrapperRef}>
         <div className="center">
           {this.props.selectedCategory ? this.props.selectedCategory : "Összes kategória"}
         </div>
