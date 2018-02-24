@@ -16,6 +16,7 @@ import * as ImageActionCreators from './actions/image';
 import Login from './views/Login';
 import Logout from './views/Logout';
 import Photos from './views/Photos';
+import Categories from './views/Categories';
 
 class App extends Component {
   static propTypes = {
@@ -67,6 +68,14 @@ class App extends Component {
                 addImage={addImage}
                 modifyImage={modifyImage}
                 removeImage={removeImage}
+                removeAll={removeAll}
+                toggleLoading={this.toggleLoading} />
+            )}/>
+
+            <Route path='/categories' render={ props => (
+              <Categories {...props}
+                images={images}
+                addImage={addImage}
                 removeAll={removeAll}
                 toggleLoading={this.toggleLoading} />
             )}/>
