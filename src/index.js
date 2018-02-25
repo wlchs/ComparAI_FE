@@ -10,7 +10,8 @@ import { createStore } from 'redux';
 import ImageReducer from './reducers/image';
 
 const store = createStore(
-  ImageReducer
+  ImageReducer,
+  window.devToolsExtension && window.devToolsExtension()
 );
 
 ReactDOM.render(
