@@ -21,11 +21,15 @@ export default class Categories extends Component {
   }
 
   componentDidMount() {
-    if (!sessionStorage.getItem('access_token')) {
+    if (!this.access_token) {
       this.props.history.push('/');
     }
 
-    this.loadContent();
+    if (!this.props.images.length) {
+      this.loadContent();
+    } else {
+      this.populateCategories();
+    }
   }
 
   loadContent() {

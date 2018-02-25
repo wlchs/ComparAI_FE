@@ -92,7 +92,16 @@ class App extends Component {
                 toggleLoading={this.toggleLoading} />
             )}/>
 
-            <Route path='/compare' render={ props => (
+            <Route exact path='/compare/' render={ props => (
+              <Compare {...props}
+                changeCategory={this.changeCategory}
+                images={images}
+                addImage={addImage}
+                removeAll={removeAll}
+                toggleLoading={this.toggleLoading} />
+            )}/>
+
+            <Route path='/compare/:id' render={ props => (
               <Compare {...props}
                 changeCategory={this.changeCategory}
                 images={images}

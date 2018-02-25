@@ -500,7 +500,8 @@ input:focus {
 
 .big_image {
   width: 542px;
-  height: auto;
+  height: 542px;
+  object-fit: cover;
 }
 
 .info{

@@ -14,13 +14,14 @@ export default class Login extends Component {
       password: undefined
     };
 
+    this.access_token = sessionStorage.getItem('access_token');
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
   }
 
   componentDidMount() {
-    if (sessionStorage.getItem('access_token')) {
+    if (this.access_token) {
       this.login();
     }
   }
