@@ -17,6 +17,7 @@ export default class Compare extends Component {
     this.downloadHighQualityVersion = this.downloadHighQualityVersion.bind(this);
     this.handleHQResponse = this.handleHQResponse.bind(this);
     this.navigate = this.navigate.bind(this);
+    this.toPhotos = this.toPhotos.bind(this);
   }
 
   componentDidMount() {
@@ -92,6 +93,11 @@ export default class Compare extends Component {
     this.props.history.push(`/compare/${this.props.images[id].id}`);
   }
 
+  toPhotos(category) {
+    this.props.changeCategory(category);
+    this.props.history.push('/photos');
+  }
+
   render() {
     let selectedId = 0;
 
@@ -123,7 +129,7 @@ export default class Compare extends Component {
                     <ul key={categoryProvider.name}>
                       <b>{categoryProvider.name.toUpperCase()} kategóriák:</b>
                       {categoryProvider.categories.map(category =>
-                        <li key={category}>- {category}</li>
+                        <li key={category} onClick={() => this.toPhotos(category)}>{category}</li>
                       )}
                     </ul>
                   )}

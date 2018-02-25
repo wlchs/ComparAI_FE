@@ -7,7 +7,7 @@ body {
   font-family: Roboto;
   color: #373A3C;
 
-  padding-top: 120px;
+  padding-top: 100px;
 
   margin: 0;
 }
@@ -25,6 +25,7 @@ body {
   justify-content: center;
   align-items: center;
   color: #fff;
+  user-select: none;
 
   transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
   cursor: pointer;
@@ -218,7 +219,7 @@ input:focus {
 
 .nav_element {
   font-size: 24px;
-  height: 65px;
+  height: 50px;
   margin-right: 55px;
   padding-top: 44px;
   border-bottom: 5px solid rgba(0,0,0,0);
@@ -277,10 +278,6 @@ input:focus {
   justify-content: space-between;
 
   position: relative;
-}
-
-.filter.button:active {
-  background-color: #A8A8A8;
 }
 
 .filter.dropdown {
@@ -380,6 +377,10 @@ input:focus {
   transform: scale(1.05);
 }
 
+.image:active {
+  transform: scale(1.1);
+}
+
 .mozaik_container {
   display: flex;
   flex-wrap: wrap;
@@ -391,6 +392,7 @@ input:focus {
   width: 126px;
   height: 126px;
 
+  pointer-events: none;
   object-fit: cover;
 }
 
@@ -524,8 +526,8 @@ input:focus {
 }
 
 .big_image {
-  width: 542px;
-  height: 542px;
+  width: 585px;
+  height: 585px;
   object-fit: cover;
 }
 
@@ -541,7 +543,7 @@ input:focus {
   overflow: hidden;
   text-overflow: ellipsis;
 
-  margin-bottom: 13px;
+  margin-bottom: 10px;
 }
 
 .info>ul {
@@ -556,4 +558,25 @@ input:focus {
 
 .info>ul>li {
   font-weight: 100;
+  color: #fff;
+
+  background-color: rgba(0,0,0,0.6);
+  border-radius: 13px;
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  margin: 3px 3px 2px 0;
+
+  user-select: none;
+  cursor: pointer;
+
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.info>ul>li:hover {
+  box-shadow: 0 2px 19px 3px rgba(0,0,0,0.5);
+  transform: scale(1.1);
+}
+
+.info>ul>li:active {
+  transform: scale(1.2);
 }
