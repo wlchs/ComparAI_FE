@@ -84,9 +84,16 @@ export default class Categories extends Component {
       }
     );
 
-    const categoryArray = Object.keys(categories).map(category => {
+    let categoryArray = Object.keys(categories).map(category => {
       return {category: category, images: categories[category]};
     });
+
+    categoryArray.sort(
+      (a, b) =>
+        (a.images.length < b.images.length ? 1
+           : b.images.length < a.images.length ? -1 : 0
+        )
+    );
 
     this.setState(state => {
       return state.categories === categoryArray ? null : {categories: categoryArray};
