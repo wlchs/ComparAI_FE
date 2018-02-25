@@ -65,6 +65,7 @@ export default class Compare extends Component {
   }
 
   downloadHighQualityVersion(id) {
+    this.id = id;
     axios.get(`${__PATH}/getImageById/${id}`, {
       headers: {'Authorization': `Bearer: ${this.access_token}`}
     })
@@ -109,6 +110,9 @@ export default class Compare extends Component {
     }
 
     const selectedImage = this.props.images[selectedId];
+    if (selectedImage && this.id !== selectedImage.id) {
+      this.loading = false;
+    }
     if (!this.loading && !this.state.hqImage && selectedImage) {
       this.loading = true;
       this.downloadHighQualityVersion(selectedImage.id);
