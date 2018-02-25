@@ -338,7 +338,7 @@ input:focus {
 }
 
 .images {
-  width: 1200px;
+  width: 1196px;
   margin: auto;
 
   display: flex;
@@ -457,7 +457,7 @@ input:focus {
  * Compare styles
 **/
 .container {
-  width: 1200px;
+  width: 1196px;
   margin: auto;
   padding: 24px 0 24px 0;
 
@@ -471,6 +471,11 @@ input:focus {
 
 .central_container {
   display: flex;
+}
+
+.central_container>.info {
+  padding: 0 0 0 50px;
+  width: 250px;
 }
 
 .nav_arrow {
@@ -508,8 +513,8 @@ input:focus {
   object-fit: cover;
 }
 
-.info{
-  padding: 0 0 0 50px;
+.info {
+  padding: 0;
 }
 
 .info_row {

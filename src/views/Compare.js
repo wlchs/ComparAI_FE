@@ -8,8 +8,14 @@ export default class Compare extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      hqImage: undefined
+    };
+
     this.access_token = sessionStorage.getItem('access_token');
     this.loadContent = this.loadContent.bind(this);
+    this.downloadHighQualityVersion = this.downloadHighQualityVersion.bind(this);
+    this.handleHQResponse = this.handleHQResponse.bind(this);
     this.navigate = this.navigate.bind(this);
   }
 
@@ -21,15 +27,12 @@ export default class Compare extends Component {
     if (!this.props.images.length) {
       this.loadContent();
     }
-    else {
-      this.lookUpId();
-    }
   }
 
   loadContent() {
     this.props.toggleLoading(true);
 
-    axios.get(`${__PATH}/getImagesByCategory/`,{
+    axios.get(`${__PATH}/getImagesByCategory/`, {
       headers: {'Authorization': `Bearer: ${this.access_token}`}
     })
       .then(response => {
@@ -60,17 +63,35 @@ export default class Compare extends Component {
     });
   }
 
+  downloadHighQualityVersion(id) {
+    axios.get(`${__PATH}/getImageById/${id}`, {
+      headers: {'Authorization': `Bearer: ${this.access_token}`}
+    })
+      .then(response => {
+        console.log(response);
+        this.handleHQResponse(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  handleHQResponse(image) {
+    const imageFormat = image.contentType;
+    const data = new Buffer(image.data, 'binary').toString('base64');
+    this.setState({hqImage: `data:${imageFormat};base64,${data}`});
+  }
+
   navigate(newId) {
     let id = newId;
     if (newId < 0) id = this.props.images.length - 1;
     else if (newId >= this.props.images.length) id = 0;
+    this.setState({hqImage: undefined});
 
     this.props.history.push(`/compare/${this.props.images[id].id}`);
   }
 
-
   render() {
-
     let selectedId = 0;
 
     if (this.props.match.params.id) {
@@ -81,6 +102,9 @@ export default class Compare extends Component {
     }
 
     const selectedImage = this.props.images[selectedId];
+    if (!this.state.hqImage && selectedImage) {
+      this.downloadHighQualityVersion(selectedImage.id);
+    }
 
     return (
       <div>
@@ -89,7 +113,7 @@ export default class Compare extends Component {
           <div className="container">
             <div className="nav_arrow left" onClick={() => this.navigate(selectedId-1)}>&lt;</div>
             <div className="central_container">
-              <img className="big_image" src={selectedImage.data} alt={selectedImage.name} />
+              <img className="big_image" src={this.state.hqImage || selectedImage.data} alt={selectedImage.name} />
                 <div className="info">
                   <div className="info_row">Név: <b>{selectedImage.name}</b></div>
                   <div className="info_row">Dátum: {selectedImage.date.split('T')[0]}</div>
