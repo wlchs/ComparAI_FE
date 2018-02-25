@@ -457,17 +457,45 @@ input:focus {
  * Compare styles
 **/
 .container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  width: 1200px;
+  margin: auto;
+  padding: 24px 0 24px 0;
 
-  margin-top: 50px;
+  border: 2px solid #4D4D4D;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav_arrow {
   font-size: 144px;
   color: #4D4D4D;
   cursor: pointer;
+
+  border: 2px solid #4D4D4D;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.nav_arrow:hover {
+  box-shadow: 0 2px 19px 3px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+
+.nav_arrow:active {
+  transform: scale(1.0);
+}
+
+.nav_arrow.left {
+  border-style: solid solid solid none;
+  border-radius: 0 20px 20px 0;
+}
+
+.nav_arrow.right {
+  border-style: solid none solid solid;
+  border-radius: 20px 0 0 20px;
 }
 
 .big_image {

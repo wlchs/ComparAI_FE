@@ -17,6 +17,7 @@ import Login from './views/Login';
 import Logout from './views/Logout';
 import Photos from './views/Photos';
 import Categories from './views/Categories';
+import Compare from './views/Compare';
 
 class App extends Component {
   static propTypes = {
@@ -84,6 +85,15 @@ class App extends Component {
 
             <Route path='/categories' render={ props => (
               <Categories {...props}
+                changeCategory={this.changeCategory}
+                images={images}
+                addImage={addImage}
+                removeAll={removeAll}
+                toggleLoading={this.toggleLoading} />
+            )}/>
+
+            <Route path='/compare' render={ props => (
+              <Compare {...props}
                 changeCategory={this.changeCategory}
                 images={images}
                 addImage={addImage}
