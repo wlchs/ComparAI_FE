@@ -88,19 +88,21 @@ export default class Compare extends Component {
         {selectedImage ?
           <div className="container">
             <div className="nav_arrow left" onClick={() => this.navigate(selectedId-1)}>&lt;</div>
-            <img className="big_image" src={selectedImage.data} alt={selectedImage.name} />
-            <div className="info">
-              <div className="info_row">Név: <b>{selectedImage.name}</b></div>
-              <div className="info_row">Dátum: {selectedImage.date.split('T')[0]}</div>
-              {selectedImage.categories.map(categoryProvider =>
-                <ul key={categoryProvider.name}>
-                  <b>{categoryProvider.name.toUpperCase()} kategóriák:</b>
-                  {categoryProvider.categories.map(category =>
-                    <li>- {category}</li>
+            <div className="central_container">
+              <img className="big_image" src={selectedImage.data} alt={selectedImage.name} />
+                <div className="info">
+                  <div className="info_row">Név: <b>{selectedImage.name}</b></div>
+                  <div className="info_row">Dátum: {selectedImage.date.split('T')[0]}</div>
+                  {selectedImage.categories.map(categoryProvider =>
+                    <ul key={categoryProvider.name}>
+                      <b>{categoryProvider.name.toUpperCase()} kategóriák:</b>
+                      {categoryProvider.categories.map(category =>
+                        <li key={category}>- {category}</li>
+                      )}
+                    </ul>
                   )}
-                </ul>
-              )}
-            </div>
+                </div>
+              </div>
             <div className="nav_arrow right" onClick={() => this.navigate(selectedId+1)}>&gt;</div>
           </div>
           : null}

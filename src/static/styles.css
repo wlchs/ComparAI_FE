@@ -469,6 +469,10 @@ input:focus {
   align-items: center;
 }
 
+.central_container {
+  display: flex;
+}
+
 .nav_arrow {
   font-size: 144px;
   color: #4D4D4D;
@@ -505,7 +509,7 @@ input:focus {
 }
 
 .info{
-  padding: 0;
+  padding: 0 0 0 50px;
 }
 
 .info_row {
