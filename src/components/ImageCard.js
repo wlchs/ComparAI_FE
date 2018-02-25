@@ -3,7 +3,10 @@ import React from 'react';
 const ImageCard = props => {
   return (
     <div className="card">
-      <img className="image" src={props.img} alt={props.name} />
+      <img className="image"
+        src={props.img}
+        alt={props.name}
+        onClick={props.navigate} />
       <div className="footer">
         <div className="checkbox" onClick={() => props.selectImage(props.id)}>
           {props.selected ? 'X' : ''}

@@ -16,6 +16,7 @@ export default class Photos extends Component {
     this.uploadNew = this.uploadNew.bind(this);
     this.deleteSelected = this.deleteSelected.bind(this);
     this.selectImage = this.selectImage.bind(this);
+    this.navigate = this.navigate.bind(this);
   }
 
   componentDidMount() {
@@ -126,6 +127,10 @@ export default class Photos extends Component {
       (selectedCategory === "" || categoryProvider.categories.includes(selectedCategory)));
   }
 
+  navigate(id) {
+    this.props.history.push(`/compare/${id}`);
+  }
+
   render() {
 
     let categories = {};
@@ -172,7 +177,8 @@ export default class Photos extends Component {
               date={image.date.split('T')[0]}
               img={image.data}
               selectImage={this.selectImage}
-              selected={image.selected} />
+              selected={image.selected}
+              navigate={() => this.navigate(image.id)} />
           )}
         </div>
       </div>
