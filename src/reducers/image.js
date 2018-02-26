@@ -17,6 +17,16 @@ export default function Image(state=initialState, action) {
       list: action.images
     });
 
+    case ImageActionTypes.SELECT_IMAGE:
+    const id = state.list.map(image => image.id).indexOf(action.id);
+    return Object.assign({}, state, {
+      list: [
+        ...state.list.slice(0, id),
+        {...state.list[id], selected: !state.list[id].selected},
+        ...state.list.slice(id + 1),
+      ]
+    });
+
     case ImageActionTypes.DOWNLOAD_ORIGINAL_IMAGE:
     return Object.assign({}, state, {
       hqImage: {id: action.id, src: action.hqImage}

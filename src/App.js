@@ -44,6 +44,7 @@ class App extends Component {
 
     const {dispatch, images} = this.props;
     const changeCategory = bindActionCreators(ImageActionCreators.setSelectedCategory, dispatch);
+    const selectImage = bindActionCreators(ImageActionCreators.selectImage, dispatch);
 
     const loadContent = () => {
       this.toggleLoading(true);
@@ -71,6 +72,7 @@ class App extends Component {
                 loadContent={loadContent}
                 changeCategory={changeCategory}
                 selectedCategory={images.selectedCategory}
+                selectImage={selectImage}
                 images={images.list}
                 toggleLoading={this.toggleLoading} />
             )}/>

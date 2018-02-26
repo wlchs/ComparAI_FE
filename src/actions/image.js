@@ -31,6 +31,13 @@ export const syncImages = () => new Promise((resolve, reject) => {
     });
 });
 
+export const selectImage = id => {
+  return {
+    type: ImageActionTypes.SELECT_IMAGE,
+    id
+  };
+};
+
 export const downloadOriginalImage = id => new Promise((resolve, reject) => {
   axios.get(`${__PATH}/getImageById/${id}`, {
     headers: {'Authorization': `Bearer: ${sessionStorage.getItem('access_token')}`}
