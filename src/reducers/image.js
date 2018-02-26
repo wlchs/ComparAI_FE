@@ -2,47 +2,31 @@ import * as ImageActionTypes from '../actiontypes/image';
 
 const initialState = {
   selectedCategory: "",
-  list: []
+  list: [],
+  hqImage: {
+    id: undefined,
+    src: undefined
+  }
 };
 
 export default function Image(state=initialState, action) {
   switch (action.type) {
 
-    case ImageActionTypes.ADD_IMAGE:
+    case ImageActionTypes.SYNC_IMAGES:
     return Object.assign({}, state, {
-      list: [
-        ...state.list,
-        action.image
-      ]
-    })
+      list: action.images
+    });
 
-    case ImageActionTypes.MODIFY_IMAGE:
-      return Object.assign({}, state, {
-        list: [
-          ...state.slice(0, action.id),
-          action.image,
-          ...state.slice(action.id + 1),
-        ]
-      })
-
-    case ImageActionTypes.REMOVE_IMAGE:
-      return Object.assign({}, state, {
-        list: [
-          ...state.slice(0, action.id),
-          ...state.slice(action.id + 1),
-        ]
-      })
-
-    case ImageActionTypes.REMOVE_ALL:
+    case ImageActionTypes.DOWNLOAD_ORIGINAL_IMAGE:
     return Object.assign({}, state, {
-      list: []
-    })
+      hqImage: {id: action.id, src: action.hqImage}
+    });
 
     case ImageActionTypes.SET_SELECTED_CATEGORY:
     return Object.assign({}, state, {
       selectedCategory: action.categoryName,
       list: [...state.list]
-    })
+    });
 
     default:
       return state;

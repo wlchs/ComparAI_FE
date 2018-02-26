@@ -21,7 +21,7 @@ import Compare from './views/Compare';
 
 class App extends Component {
   static propTypes = {
-    images: propTypes.array.isRequired
+    images: propTypes.object.isRequired
   };
 
   constructor(props) {
@@ -43,10 +43,6 @@ class App extends Component {
   render() {
 
     const {dispatch, images} = this.props;
-    const addImage = bindActionCreators(ImageActionCreators.addImage, dispatch);
-    const modifyImage = bindActionCreators(ImageActionCreators.modifyImage, dispatch);
-    const removeImage = bindActionCreators(ImageActionCreators.removeImage, dispatch);
-    const removeAll = bindActionCreators(ImageActionCreators.removeAll, dispatch);
     const changeCategory = bindActionCreators(ImageActionCreators.setSelectedCategory, dispatch);
 
     return (
@@ -68,10 +64,6 @@ class App extends Component {
                 changeCategory={changeCategory}
                 selectedCategory={images.selectedCategory}
                 images={images.list}
-                addImage={addImage}
-                modifyImage={modifyImage}
-                removeImage={removeImage}
-                removeAll={removeAll}
                 toggleLoading={this.toggleLoading} />
             )}/>
 
@@ -79,17 +71,17 @@ class App extends Component {
               <Categories {...props}
                 changeCategory={changeCategory}
                 images={images.list}
-                addImage={addImage}
-                removeAll={removeAll}
                 toggleLoading={this.toggleLoading} />
             )}/>
 
             <Route path='/compare/:id?' render={ props => (
               <Compare {...props}
                 changeCategory={changeCategory}
+                syncImages={ImageActionCreators.syncImages}
+                downloadOriginalImage={ImageActionCreators.downloadOriginalImage}
+                hqImage={images.hqImage}
+                dispatch={dispatch}
                 images={images.list}
-                addImage={addImage}
-                removeAll={removeAll}
                 toggleLoading={this.toggleLoading} />
             )}/>
 
