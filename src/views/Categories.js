@@ -25,7 +25,7 @@ export default class Categories extends Component {
       this.props.history.push('/');
     }
 
-    if (!this.props.images.list.length) {
+    if (!this.props.images.length) {
       this.loadContent();
     } else {
       this.populateCategories();
@@ -52,7 +52,7 @@ export default class Categories extends Component {
     this.props.removeAll();
 
     imageArray.forEach(image => {
-      if(!this.props.images.list.includes(image)) {
+      if(!this.props.images.includes(image)) {
         const imageFormat = image.contentType;
         const data = new Buffer(image.thumbnail, 'binary').toString('base64');
         this.props.addImage({
@@ -69,7 +69,7 @@ export default class Categories extends Component {
   populateCategories() {
     let categories = {};
 
-    this.props.images.list.forEach(
+    this.props.images.forEach(
       image => {
         image.categories.forEach(
           categoryProvider => {
