@@ -45,6 +45,13 @@ class App extends Component {
     const {dispatch, images} = this.props;
     const changeCategory = bindActionCreators(ImageActionCreators.setSelectedCategory, dispatch);
 
+    const loadContent = () => {
+      this.toggleLoading(true);
+      ImageActionCreators.syncImages()
+        .then(action => this.props.dispatch(action))
+        .finally(() => this.toggleLoading(false));
+    }
+
     return (
       <div>
         <BrowserRouter>
@@ -61,6 +68,7 @@ class App extends Component {
 
             <Route path='/photos' render={ props => (
               <Photos {...props}
+                loadContent={loadContent}
                 changeCategory={changeCategory}
                 selectedCategory={images.selectedCategory}
                 images={images.list}
@@ -69,6 +77,7 @@ class App extends Component {
 
             <Route path='/categories' render={ props => (
               <Categories {...props}
+                loadContent={loadContent}
                 changeCategory={changeCategory}
                 images={images.list}
                 toggleLoading={this.toggleLoading} />
@@ -76,8 +85,8 @@ class App extends Component {
 
             <Route path='/compare/:id?' render={ props => (
               <Compare {...props}
+                loadContent={loadContent}
                 changeCategory={changeCategory}
-                syncImages={ImageActionCreators.syncImages}
                 downloadOriginalImage={ImageActionCreators.downloadOriginalImage}
                 hqImage={images.hqImage}
                 dispatch={dispatch}

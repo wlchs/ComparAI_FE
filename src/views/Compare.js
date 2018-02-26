@@ -7,7 +7,6 @@ export default class Compare extends Component {
     super(props);
 
     this.access_token = sessionStorage.getItem('access_token');
-    this.loadContent = this.loadContent.bind(this);
     this.loadHQContent = this.loadHQContent.bind(this);
     this.navigate = this.navigate.bind(this);
     this.toPhotos = this.toPhotos.bind(this);
@@ -19,18 +18,10 @@ export default class Compare extends Component {
     }
 
     if (!this.props.images.length) {
-      this.loadContent();
+      this.props.loadContent();
     }
 
     this.hqImageActualized = false;
-  }
-
-  loadContent() {
-    this.props.toggleLoading(true);
-
-    this.props.syncImages()
-      .then(action => this.props.dispatch(action))
-      .finally(() => this.props.toggleLoading(false));
   }
 
   loadHQContent(id) {
