@@ -25,7 +25,7 @@ export default class Compare extends Component {
       this.props.history.push('/');
     }
 
-    if (!this.props.images.length) {
+    if (!this.props.images.list.length) {
       this.loadContent();
     }
   }
@@ -52,7 +52,7 @@ export default class Compare extends Component {
     this.props.removeAll();
 
     imageArray.forEach(image => {
-      if(!this.props.images.includes(image)) {
+      if(!this.props.images.list.includes(image)) {
         const imageFormat = image.contentType;
         const data = new Buffer(image.thumbnail, 'binary').toString('base64');
         this.props.addImage({
@@ -86,12 +86,12 @@ export default class Compare extends Component {
 
   navigate(newId) {
     let id = newId;
-    if (newId < 0) id = this.props.images.length - 1;
-    else if (newId >= this.props.images.length) id = 0;
+    if (newId < 0) id = this.props.images.list.length - 1;
+    else if (newId >= this.props.images.list.length) id = 0;
     this.setState({hqImage: undefined});
     this.hqImageActualized = false;
 
-    this.props.history.push(`/compare/${this.props.images[id].id}`);
+    this.props.history.push(`/compare/${this.props.images.list[id].id}`);
   }
 
   toPhotos(category) {
@@ -103,13 +103,13 @@ export default class Compare extends Component {
     let selectedId = 0;
 
     if (this.props.match.params.id) {
-      const id = this.props.images.map(image => image.id)
+      const id = this.props.images.list.map(image => image.id)
         .indexOf(this.props.match.params.id);
 
       selectedId = id;
     }
 
-    const selectedImage = this.props.images[selectedId];
+    const selectedImage = this.props.images.list[selectedId];
     if (selectedImage && this.id !== selectedImage.id) {
       this.hqImageActualized = false;
     }

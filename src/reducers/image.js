@@ -1,31 +1,48 @@
 import * as ImageActionTypes from '../actiontypes/image';
 
-const initialState = [];
+const initialState = {
+  selectedCategory: "",
+  list: []
+};
 
 export default function Image(state=initialState, action) {
   switch (action.type) {
 
     case ImageActionTypes.ADD_IMAGE:
-      return [
-        ...state,
+    return Object.assign({}, state, {
+      list: [
+        ...state.list,
         action.image
-      ];
+      ]
+    })
 
     case ImageActionTypes.MODIFY_IMAGE:
-      return [
-        ...state.slice(0, action.id),
-        action.image,
-        ...state.slice(action.id + 1),
-      ];
+      return Object.assign({}, state, {
+        list: [
+          ...state.slice(0, action.id),
+          action.image,
+          ...state.slice(action.id + 1),
+        ]
+      })
 
     case ImageActionTypes.REMOVE_IMAGE:
-      return [
-        ...state.slice(0, action.id),
-        ...state.slice(action.id + 1),
-      ];
+      return Object.assign({}, state, {
+        list: [
+          ...state.slice(0, action.id),
+          ...state.slice(action.id + 1),
+        ]
+      })
 
     case ImageActionTypes.REMOVE_ALL:
-      return [];
+    return Object.assign({}, state, {
+      list: []
+    })
+
+    case ImageActionTypes.SET_SELECTED_CATEGORY:
+    return Object.assign({}, state, {
+      selectedCategory: action.categoryName,
+      list: [...state.list]
+    })
 
     default:
       return state;

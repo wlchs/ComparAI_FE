@@ -24,7 +24,7 @@ export default class Photos extends Component {
       this.props.history.push('/');
     }
 
-    if (!this.props.images.length) {
+    if (!this.props.images.list.length) {
       this.loadContent();
     }
   }
@@ -67,7 +67,7 @@ export default class Photos extends Component {
   }
 
   deleteSelected() {
-    const id = this.props.images.filter(image => image.selected)
+    const id = this.props.images.list.filter(image => image.selected)
       .map(image => image.id);
 
     if (!id.length) {
@@ -96,7 +96,7 @@ export default class Photos extends Component {
     this.props.removeAll();
 
     imageArray.forEach(image => {
-      if(!this.props.images.includes(image)) {
+      if(!this.props.images.list.includes(image)) {
         const imageFormat = image.contentType;
         const data = new Buffer(image.thumbnail, 'binary').toString('base64');
         this.props.addImage({
@@ -109,10 +109,10 @@ export default class Photos extends Component {
   }
 
   selectImage(imageId) {
-    let selected = this.props.images.filter(image => {
+    let selected = this.props.images.list.filter(image => {
       return image.id === imageId;
     })[0];
-    const id = this.props.images.indexOf(selected);
+    const id = this.props.images.list.indexOf(selected);
 
     selected = {
       ...selected,
@@ -134,7 +134,7 @@ export default class Photos extends Component {
   render() {
 
     let categories = {};
-    this.props.images.forEach(
+    this.props.images.list.forEach(
       image => {
         let categorySet = new Set();
 
@@ -156,7 +156,7 @@ export default class Photos extends Component {
       return {name: key, count: categories[key]};
     });
 
-    const filteredImages = this.props.images.filter(image => {
+    const filteredImages = this.props.images.list.filter(image => {
       return this.containsCategory(image, this.props.selectedCategory);
     });
 

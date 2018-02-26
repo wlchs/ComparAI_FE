@@ -27,3 +27,10 @@ export const removeAll = () => {
     type: ImageActionTypes.REMOVE_ALL
   };
 };
+
+export const setSelectedCategory = categoryName => {
+  return {
+    type: ImageActionTypes.SET_SELECTED_CATEGORY,
+    categoryName
+  };
+};
