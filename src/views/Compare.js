@@ -89,7 +89,7 @@ export default class Compare extends Component {
     if (newId < 0) id = this.props.images.length - 1;
     else if (newId >= this.props.images.length) id = 0;
     this.setState({hqImage: undefined});
-    this.loading = false;
+    this.hqImageActualized = false;
 
     this.props.history.push(`/compare/${this.props.images[id].id}`);
   }
@@ -111,10 +111,10 @@ export default class Compare extends Component {
 
     const selectedImage = this.props.images[selectedId];
     if (selectedImage && this.id !== selectedImage.id) {
-      this.loading = false;
+      this.hqImageActualized = false;
     }
-    if (!this.loading && !this.state.hqImage && selectedImage) {
-      this.loading = true;
+    if (!this.hqImageActualized && !this.state.hqImage && selectedImage) {
+      this.hqImageActualized = true;
       this.downloadHighQualityVersion(selectedImage.id);
     }
 
