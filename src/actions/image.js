@@ -31,6 +31,44 @@ export const syncImages = () => new Promise((resolve, reject) => {
     });
 });
 
+export const uploadImage = imageFile => new Promise((resolve, reject) => {
+  let data = new FormData();
+
+  data.append('image', imageFile);
+  data.append('name', imageFile.name);
+
+  axios.post(`${__PATH}/uploadSingle/`, data, {
+    headers: {'Authorization': `Bearer: ${sessionStorage.getItem('access_token')}`}
+  })
+    .then(response => {
+      console.log(response);
+      resolve({
+        type: ImageActionTypes.UPLOAD_IMAGE,
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      reject();
+    });
+});
+
+export const deleteImages = data => new Promise((resolve, reject) => {
+  axios.delete(`${__PATH}/deleteMultipleImages/`, {
+    headers: {'Authorization': `Bearer: ${sessionStorage.getItem('access_token')}`},
+    data
+  })
+    .then(response => {
+      console.log(response);
+      resolve({
+        type: ImageActionTypes.DELETE_IMAGES,
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      reject();
+    });
+});
+
 export const selectImage = id => {
   return {
     type: ImageActionTypes.SELECT_IMAGE,

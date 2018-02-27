@@ -70,6 +70,8 @@ class App extends Component {
             <Route path='/photos' render={ props => (
               <Photos {...props}
                 loadContent={loadContent}
+                uploadImage={ImageActionCreators.uploadImage}
+                deleteImages={ImageActionCreators.deleteImages}
                 changeCategory={changeCategory}
                 selectedCategory={images.selectedCategory}
                 selectImage={selectImage}

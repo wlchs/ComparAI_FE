@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import __PATH from '../environments';
 
 import Navbar from '../components/Navbar';
 import Menubar from '../components/Menubar';
@@ -28,23 +26,9 @@ export default class Photos extends Component {
   }
 
   uploadNew(imageFile) {
-    let data = new FormData();
-
-    data.append('image', imageFile);
-    data.append('name', imageFile.name);
-
     this.props.toggleLoading(true);
-
-    axios.post(`${__PATH}/uploadSingle/`, data, {
-      headers: {'Authorization': `Bearer: ${this.access_token}`}
-    })
-      .then(response => {
-        console.log(response);
-        this.props.loadContent();
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    this.props.uploadImage(imageFile)
+      .then(() => this.props.loadContent())
       .finally(() => this.props.toggleLoading(false));
   }
 
@@ -59,18 +43,8 @@ export default class Photos extends Component {
     const data = { id };
 
     this.props.toggleLoading(true);
-
-    axios.delete(`${__PATH}/deleteMultipleImages/`, {
-      headers: {'Authorization': `Bearer: ${this.access_token}`},
-      data
-    })
-      .then(response => {
-        console.log(response);
-        this.props.loadContent();
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    this.props.deleteImages(data)
+      .then(() => this.props.loadContent())
       .finally(() => this.props.toggleLoading(false));
   }
 
