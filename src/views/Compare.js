@@ -20,8 +20,6 @@ export default class Compare extends Component {
     if (!this.props.images.length) {
       this.props.loadContent();
     }
-
-    this.hqImageActualized = false;
   }
 
   loadHQContent(id) {
