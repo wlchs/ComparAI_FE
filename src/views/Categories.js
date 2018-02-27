@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import __PATH from '../environments';
 
 import Navbar from '../components/Navbar';
 import CategoryCard from '../components/CategoryCard';
@@ -15,7 +13,6 @@ export default class Categories extends Component {
     };
 
     this.access_token = sessionStorage.getItem('access_token');
-    this.loadContent = this.loadContent.bind(this);
     this.populateCategories = this.populateCategories.bind(this);
     this.changeCategory = this.changeCategory.bind(this);
   }
@@ -26,44 +23,10 @@ export default class Categories extends Component {
     }
 
     if (!this.props.images.length) {
-      this.loadContent();
+      this.props.loadContent();
     } else {
       this.populateCategories();
     }
-  }
-
-  loadContent() {
-    this.props.toggleLoading(true);
-
-    axios.get(`${__PATH}/getImagesByCategory/`,{
-      headers: {'Authorization': `Bearer: ${this.access_token}`}
-    })
-      .then(response => {
-        console.log(response);
-        this.handleResponse(response.data.images);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => this.props.toggleLoading(false));
-  }
-
-  handleResponse(imageArray) {
-    this.props.removeAll();
-
-    imageArray.forEach(image => {
-      if(!this.props.images.includes(image)) {
-        const imageFormat = image.contentType;
-        const data = new Buffer(image.thumbnail, 'binary').toString('base64');
-        this.props.addImage({
-          ...image,
-          selected: false,
-          data: `data:${imageFormat};base64,${data}`
-        });
-      }
-    });
-
-    this.populateCategories();
   }
 
   populateCategories() {
@@ -110,7 +73,6 @@ export default class Categories extends Component {
   }
 
   render() {
-
     return (
       <div>
         <Navbar />
