@@ -300,7 +300,7 @@ input:focus {
   background-color: #4D4D4D;
   border-radius: 13px;
 
-  z-index: 10;
+  z-index: 5;
 }
 
 .dropdown_element {
