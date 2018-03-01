@@ -45,6 +45,11 @@ export default class Dropdown extends Component {
     });
   }
 
+  compare(a, b) {
+    return a.key.toUpperCase() > b.key.toUpperCase() ? 1 :
+      b.key.toUpperCase() > a.key.toUpperCase() ? -1 : 0;
+  }
+
   render() {
     const list =
       <div className="dropdown_frame">
@@ -57,7 +62,7 @@ export default class Dropdown extends Component {
             onClick={() => {
               this.props.changeCategory(category.name);
             }} >{category.name}</div>
-        )}
+        ).sort(this.compare)}
       </div>;
 
     return (
