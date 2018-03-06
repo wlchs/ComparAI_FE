@@ -408,7 +408,6 @@ input:focus {
 
 .footer>.checkbox {
   position: absolute;
-  top: 7px;
   left: 0;
   font-size: 26px;
   cursor: pointer;

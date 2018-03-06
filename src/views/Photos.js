@@ -103,7 +103,6 @@ export default class Photos extends Component {
           {filteredImages.map(image =>
             <ImageCard key={image.id}
               id={image.id}
-              name={image.name}
               date={image.date.split('T')[0]}
               img={image.data}
               selectImage={this.props.selectImage}
