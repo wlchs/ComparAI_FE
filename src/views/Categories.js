@@ -38,11 +38,11 @@ export default class Categories extends Component {
           categoryProvider => {
             categoryProvider.categories.forEach(
               category => {
-                if (!categories[category]) {
-                  categories[category] = [];
+                if (!categories[category.name]) {
+                  categories[category.name] = [];
                 }
-                if (!categories[category].includes(image.data)) {
-                  categories[category].push(image.data);
+                if (!categories[category.name].includes(image.data)) {
+                  categories[category.name].push(image.data);
                 }
               }
             );

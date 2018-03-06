@@ -50,7 +50,11 @@ export default class Photos extends Component {
 
   containsCategory(image, selectedCategory) {
     return image.categories.some(categoryProvider =>
-      (selectedCategory === "" || categoryProvider.categories.includes(selectedCategory)));
+      (selectedCategory === "" || categoryProvider.categories
+          .map(category => category.name)
+          .includes(selectedCategory)
+        )
+      );
   }
 
   navigate(id) {
@@ -67,7 +71,7 @@ export default class Photos extends Component {
         image.categories.forEach(
           imageService => imageService.categories.forEach(
             label => {
-              categorySet.add(label);
+              categorySet.add(label.name);
             }
           )
         );
