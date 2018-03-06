@@ -78,7 +78,10 @@ export default class Compare extends Component {
                   <ul key={categoryProvider.name}>
                     <b>{categoryProvider.name.toUpperCase()} kategóriák:</b>
                     {categoryProvider.categories.map(category =>
-                      <li key={category} onClick={() => this.toPhotos(category)}>{category}</li>
+                      <li key={category.name}
+                        onClick={() => this.toPhotos(category.name)}>
+                        {category.name} - {category.score.toFixed(2)*100}%
+                      </li>
                     )}
                   </ul>
                 )}
