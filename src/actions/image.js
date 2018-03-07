@@ -33,9 +33,9 @@ export const syncImages = () => new Promise((resolve, reject) => {
 
 export const uploadImage = imageFile => new Promise((resolve, reject) => {
   let data = new FormData();
-
-  data.append('image', imageFile);
-  data.append('name', imageFile.name);
+  for (let i = 0; i < imageFile.length; ++i) {
+    data.append('image', imageFile[i]);  
+  }
 
   axios.post(`${__PATH}/uploadSingle/`, data, {
     headers: {'Authorization': `Bearer: ${sessionStorage.getItem('access_token')}`}

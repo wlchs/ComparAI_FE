@@ -17,7 +17,7 @@ export default class Menubar extends Component {
   sendFile(event) {
     event.stopPropagation();
     event.preventDefault();
-    const file = event.target.files[0];
+    const file = event.target.files;
     this.props.uploadNew(file);
   }
 
@@ -29,13 +29,14 @@ export default class Menubar extends Component {
           categories={this.props.categories}
           changeCategory={this.props.changeCategory} />
         <div className="small button success text" onClick={this.openUploader}>
-          Új kép hozzáadása
+          Új képek hozzáadása
           <input type="file"
             id="file"
             ref="fileUploader"
             style={{display: "none"}}
             onChange={this.sendFile}
-            accept="image/*" />
+            accept="image/*"
+            multiple />
         </div>
         <div className="small button error text" onClick={this.props.deleteSelected}>
           Kijelöltek törlése
