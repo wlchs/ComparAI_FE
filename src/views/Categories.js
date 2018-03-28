@@ -29,6 +29,12 @@ export default class Categories extends Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.props.images.length && !this.state.categories.length) {
+      this.populateCategories();
+    }
+  }
+
   populateCategories() {
     let categories = {};
 
@@ -53,6 +59,8 @@ export default class Categories extends Component {
 
     let categoryArray = Object.keys(categories).map(category => {
       return {category: category, images: categories[category]};
+    }).filter(category => {
+      return (category.images.length >= this.props.images.length * 0.1);
     });
 
     categoryArray.sort(
