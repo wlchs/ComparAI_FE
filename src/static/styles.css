@@ -161,6 +161,14 @@ input:focus {
 /**
  * Login styles
 **/
+.title_bar {
+  border-bottom: 5px solid rgba(0,0,0,0);
+  text-decoration: none;
+  color: inherit;
+  cursor: none;
+  z-index: 10;
+}
+
 .login {
   position: absolute;
   left: 50%;

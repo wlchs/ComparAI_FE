@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import __PATH from '../environments';
 
+import Navbar from '../components/Navbar';
 import LoginFormComponent from '../components/LoginFormComponent';
 
 export default class Login extends Component {
@@ -62,10 +63,13 @@ export default class Login extends Component {
 
   render() {
     return (
-      <LoginFormComponent
-        handleEmail={this.handleEmail}
-        handlePassword={this.handlePassword}
-        handleSubmit={this.handleSubmit}/>
+      <div>
+        <Navbar disabled/>
+        <LoginFormComponent
+          handleEmail={this.handleEmail}
+          handlePassword={this.handlePassword}
+          handleSubmit={this.handleSubmit}/>
+      </div>
     );
   }
 }

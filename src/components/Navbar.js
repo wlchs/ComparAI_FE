@@ -5,16 +5,23 @@ const Navbar = props => {
   return (
     <div className="navbar">
       <div className="link_group">
-        <NavLink to="/photos" className="nav_element">
-          Fényképeim
-        </NavLink>
-        <NavLink to="/categories" className="nav_element">
-          Kategóriák
-        </NavLink>
-        <NavLink to="/compare" className="nav_element">
-          Összehasonlítás
+        <NavLink exact to="/" className="nav_element">
+          ComparAI
         </NavLink>
       </div>
+      {props.disabled ? null :
+        <div className="link_group">
+          <NavLink to="/photos" className="nav_element">
+            Fényképeim
+          </NavLink>
+          <NavLink to="/categories" className="nav_element">
+            Kategóriák
+          </NavLink>
+          <NavLink to="/compare" className="nav_element">
+            Összehasonlítás
+          </NavLink>
+        </div>
+      }
       <div className="link_group">
         <NavLink to="/logout" className="nav_element logout">
           Kijelentkezés
