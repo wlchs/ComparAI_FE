@@ -22,11 +22,13 @@ const Navbar = props => {
           </NavLink>
         </div>
       }
-      <div className="link_group">
-        <NavLink to="/logout" className="nav_element logout">
-          Kijelentkezés
-        </NavLink>
-      </div>
+      {props.disabled ? null :
+        <div className="link_group">
+          <NavLink to="/logout" className="nav_element logout">
+            Kijelentkezés
+          </NavLink>
+        </div>
+      }
     </div>
   );
 };
