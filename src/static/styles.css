@@ -492,26 +492,16 @@ input:focus {
   .container {
     width: 900px;
   }
-
-  .central_container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .central_container>.info {
-    margin-top: 30px;
-    padding: 0;
-  }
 }
 
 .central_container {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
 .central_container>.info {
-  padding: 0 0 0 50px;
-  width: 250px;
+  margin: 30px 0 0 0;
 }
 
 .nav_arrow {
@@ -556,6 +546,7 @@ input:focus {
 .info_row {
   font-size: 24px;
   font-weight: 100;
+  text-align: center;
 
   white-space: nowrap;
   overflow: hidden;
@@ -564,23 +555,32 @@ input:focus {
   margin-bottom: 10px;
 }
 
-.info>ul {
+.categories {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.categories>ul {
   padding: 0;
   list-style-type: none;
 
   font-size: 24px;
   font-weight: 300;
+  text-align: center;
 
   margin: 0 0 13px 0;
+  width: 250px;
 }
 
-.info>ul>li {
+.categories>ul>li {
   font-weight: 100;
   color: #fff;
 
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(77,77,77,1);
   border-radius: 13px;
-  display: inline-block;
   padding: 5px 10px 5px 10px;
   margin: 3px 3px 2px 3px;
 
@@ -588,13 +588,23 @@ input:focus {
   cursor: pointer;
 
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+  display: flex;
+  justify-content: center;
 }
 
-.info>ul>li:hover {
-  box-shadow: 0 2px 19px 3px rgba(0,0,0,0.5);
-  transform: scale(1.1);
+.categories>ul>li>.name {
+  max-width: 150px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.info>ul>li:active {
+.categories>ul>li:hover {
+  box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+
+.categories>ul>li:active {
   transform: scale(1.2);
 }

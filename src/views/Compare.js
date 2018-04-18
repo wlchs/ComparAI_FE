@@ -74,13 +74,15 @@ export default class Compare extends Component {
               <div className="info">
                 <div className="info_row">Név: <b>{selectedImage.name}</b></div>
                 <div className="info_row">Dátum: {selectedImage.date.split('T')[0]}</div>
+              </div>
+              <div className="categories">
                 {selectedImage.categories.map(categoryProvider =>
                   <ul key={categoryProvider.name}>
-                    <b>{categoryProvider.name.toUpperCase()} kategóriák:</b>
+                    <b>{categoryProvider.name.toUpperCase()}</b>
                     {categoryProvider.categories.map(category =>
                       <li key={category.name}
                         onClick={() => this.toPhotos(category.name)}>
-                        {category.name} - {(category.score*100).toFixed(2)}%
+                        <div className="name">{category.name}</div><div>&nbsp;-&nbsp;{(category.score*100).toFixed(0)}%</div>
                       </li>
                     )}
                   </ul>
@@ -94,3 +96,20 @@ export default class Compare extends Component {
     );
   }
 }
+
+
+/*
+
+{selectedImage.categories.map(categoryProvider =>
+  <ul key={categoryProvider.name}>
+    <b>{categoryProvider.name.toUpperCase()} kategóriák:</b>
+    {categoryProvider.categories.map(category =>
+      <li key={category.name}
+        onClick={() => this.toPhotos(category.name)}>
+        {category.name} - {(category.score*100).toFixed(2)}%
+      </li>
+    )}
+  </ul>
+)}
+
+*/
