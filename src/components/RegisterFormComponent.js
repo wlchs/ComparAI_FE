@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoginFormComponent = props => {
+const RegisterFormComponent = props => {
   return (
     <form className="login" onSubmit={props.handleSubmit}>
       <div className="username_container">
@@ -17,15 +17,18 @@ const LoginFormComponent = props => {
           onChange={props.handlePassword}
           required />
       </div>
-      <input type="submit"
-        value="Bejelentkezés"
-        className="login_button button text success" />
-      <div onClick={() => props.history.push('/register')}
-        className="register_button button text error">
-        Regisztráció
+      <div className="code_container">
+        <p className="text">Kód:</p>
+        <input type="text"
+          className="text_field"
+          onChange={props.handleCode}
+          required />
       </div>
+      <input type="submit"
+        value="Regisztráció"
+        className="login_button button text error" />
     </form>
   );
 };
 
-export default LoginFormComponent;
+export default RegisterFormComponent;

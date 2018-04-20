@@ -14,6 +14,7 @@ import { bindActionCreators } from 'redux';
 import * as ImageActionCreators from './actions/image';
 
 import Login from './views/Login';
+import Register from './views/Register';
 import Logout from './views/Logout';
 import Photos from './views/Photos';
 import Categories from './views/Categories';
@@ -40,11 +41,16 @@ class App extends Component {
     });
   }
 
+  toRegister() {
+    this.props.push('/register');
+  }
+
   render() {
 
     const {dispatch, images} = this.props;
     const changeCategory = bindActionCreators(ImageActionCreators.setSelectedCategory, dispatch);
     const selectImage = bindActionCreators(ImageActionCreators.selectImage, dispatch);
+    const clearCache = bindActionCreators(ImageActionCreators.clearCache, dispatch);
 
     const loadContent = () => {
       this.toggleLoading(true);
@@ -60,7 +66,12 @@ class App extends Component {
             <Redirect exact from='/' to='/login'/>
 
             <Route path='/login' render={ props => (
-              <Login {...props} />
+              <Login {...props}
+                clearCache={clearCache} />
+            )}/>
+
+            <Route path='/register' render={ props => (
+              <Register {...props} />
             )}/>
 
             <Route path='/logout' render={ props => (

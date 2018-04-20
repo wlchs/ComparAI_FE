@@ -36,11 +36,11 @@ body {
 }
 
 .success.button:hover {
-  background-color: #13450D;
+  background-color: #299C1F;
 }
 
 .success.button:active {
-  background-color: #299C1F;
+  background-color: #13450D;
 }
 
 .error.button:hover {
@@ -178,7 +178,6 @@ input:focus {
   transform: translate(-50%, -50%);
   background-color: #E8E8E8;
   width: 60%;
-  height: 569px;
   border-radius: 26px;
   display: flex;
   flex-direction: column;
@@ -193,11 +192,17 @@ input:focus {
 
 .username_container {
   width: 60%;
-  margin: 80px 0 40px 0;
+  margin: 40px 0 20px 0;
 }
+
 .password_container {
   width: 60%;
-  margin-top: 40px;
+  margin-top: 20px;
+}
+
+.code_container {
+  width: 60%;
+  margin: 40px 0 20px 0;
 }
 
 .text {
@@ -207,7 +212,11 @@ input:focus {
 }
 
 .login_button.button {
-  margin-top: 86px;
+  margin: 30px 0 20px 0;
+}
+
+.register_button.button {
+  margin-bottom: 20px;
 }
 
 /**

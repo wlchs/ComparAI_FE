@@ -42,6 +42,9 @@ export default function Image(state=initialState, action) {
       list: state.list.filter(img => !action.data.id.includes(img.id))
     });
 
+    case ImageActionTypes.CLEAR_CACHE:
+    return initialState;
+
     default:
       return state;
   }

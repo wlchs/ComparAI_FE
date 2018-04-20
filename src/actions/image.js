@@ -121,3 +121,9 @@ export const setSelectedCategory = categoryName => {
     categoryName
   };
 };
+
+export const clearCache = () => {
+  return {
+    type: ImageActionTypes.CLEAR_CACHE
+  };
+};

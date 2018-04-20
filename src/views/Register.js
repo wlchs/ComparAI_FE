@@ -3,46 +3,39 @@ import axios from 'axios';
 import __PATH from '../environments';
 
 import Navbar from '../components/Navbar';
-import LoginFormComponent from '../components/LoginFormComponent';
+import RegisterFormComponent from '../components/RegisterFormComponent';
 
-export default class Login extends Component {
+export default class Register extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
       email: undefined,
-      password: undefined
+      password: undefined,
+      code: undefined
     };
 
-    this.access_token = sessionStorage.getItem('access_token');
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
+    this.handleCode = this.handleCode.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
   }
 
-  componentDidMount() {
-    if (this.access_token) {
-      this.login();
-    } else {
-      this.props.clearCache();
-    }
-  }
-
   login() {
-    this.props.history.push('/photos');
+    this.props.history.push('/login');
   }
 
   handleSubmit(event) {
     event.preventDefault();
 
-    axios.post(`${__PATH}/auth`, {
+    axios.post(`${__PATH}/register`, {
       userId: this.state.email,
-      password_hash: this.state.password
+      password_hash: this.state.password,
+      code: this.state.code
     })
     .then(response => {
       console.log(response);
-      sessionStorage.setItem('access_token', response.data.token);
       this.login();
     })
     .catch(err => {
@@ -63,15 +56,21 @@ export default class Login extends Component {
     });
   }
 
+  handleCode(event) {
+    this.setState({
+      code: event.target.value
+    });
+  }
+
   render() {
     return (
       <div>
         <Navbar disabled/>
-        <LoginFormComponent
+        <RegisterFormComponent
           handleEmail={this.handleEmail}
           handlePassword={this.handlePassword}
-          handleSubmit={this.handleSubmit}
-          history={this.props.history} />
+          handleCode={this.handleCode}
+          handleSubmit={this.handleSubmit}/>
       </div>
     );
   }
