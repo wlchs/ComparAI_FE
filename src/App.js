@@ -75,6 +75,7 @@ class App extends Component {
                 changeCategory={changeCategory}
                 selectedCategory={images.selectedCategory}
                 selectImage={selectImage}
+                dispatch={dispatch}
                 images={images.list}
                 toggleLoading={this.toggleLoading} />
             )}/>

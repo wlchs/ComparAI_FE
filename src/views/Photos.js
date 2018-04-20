@@ -44,7 +44,7 @@ export default class Photos extends Component {
 
     this.props.toggleLoading(true);
     this.props.deleteImages(data)
-      .then(() => this.props.loadContent())
+      .then(action => this.props.dispatch(action))
       .finally(() => this.props.toggleLoading(false));
   }
 

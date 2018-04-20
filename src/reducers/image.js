@@ -34,8 +34,12 @@ export default function Image(state=initialState, action) {
 
     case ImageActionTypes.SET_SELECTED_CATEGORY:
     return Object.assign({}, state, {
-      selectedCategory: action.categoryName,
-      list: [...state.list]
+      selectedCategory: action.categoryName
+    });
+
+    case ImageActionTypes.DELETE_IMAGES:
+    return Object.assign({}, state, {
+      list: state.list.filter(img => !action.data.id.includes(img.id))
     });
 
     default:

@@ -61,11 +61,15 @@ export const deleteImages = data => new Promise((resolve, reject) => {
       console.log(response);
       resolve({
         type: ImageActionTypes.DELETE_IMAGES,
+        data
       });
     })
     .catch(err => {
       console.log(err);
-      reject();
+      reject({
+        type: ImageActionTypes.DELETE_IMAGES,
+        data: []
+      });
     });
 });
 
