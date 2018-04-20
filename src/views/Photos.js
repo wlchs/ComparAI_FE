@@ -27,7 +27,7 @@ export default class Photos extends Component {
 
   uploadNew(imageFile) {
     this.props.toggleLoading(true);
-    this.props.uploadImage(imageFile)
+    this.props.uploadImage(imageFile, this.props.history)
       .then(() => this.props.loadContent())
       .finally(() => this.props.toggleLoading(false));
   }
@@ -43,7 +43,7 @@ export default class Photos extends Component {
     const data = { id };
 
     this.props.toggleLoading(true);
-    this.props.deleteImages(data)
+    this.props.deleteImages(data, this.props.history)
       .then(action => this.props.dispatch(action))
       .finally(() => this.props.toggleLoading(false));
   }

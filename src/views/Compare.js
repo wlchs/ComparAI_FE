@@ -25,8 +25,9 @@ export default class Compare extends Component {
   loadHQContent(id) {
     this.id = id;
     this.hqImageActualized = true;
-    this.props.downloadOriginalImage(id)
-      .then(action => this.props.dispatch(action));
+    this.props.downloadOriginalImage(id, this.props.history)
+      .then(action => this.props.dispatch(action))
+      .catch(err => console.log(err));
   }
 
   navigate(newId) {

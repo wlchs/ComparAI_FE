@@ -2,7 +2,12 @@ import * as ImageActionTypes from '../actiontypes/image';
 import axios from 'axios';
 import __PATH from '../environments';
 
-export const syncImages = () => new Promise((resolve, reject) => {
+const redirect = history => {
+  sessionStorage.removeItem('access_token');
+  history.push('/');
+}
+
+export const syncImages = history => new Promise((resolve, reject) => {
   let images = [];
 
   axios.get(`${__PATH}/getImagesByCategory/`, {
@@ -21,7 +26,9 @@ export const syncImages = () => new Promise((resolve, reject) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      if (err && err.response && err.response.status === 401) {
+        redirect(history);
+      }
     })
     .finally(() => {
       resolve({
@@ -31,10 +38,10 @@ export const syncImages = () => new Promise((resolve, reject) => {
     });
 });
 
-export const uploadImage = imageFile => new Promise((resolve, reject) => {
+export const uploadImage = (imageFile, history) => new Promise((resolve, reject) => {
   let data = new FormData();
   for (let i = 0; i < imageFile.length; ++i) {
-    data.append('image', imageFile[i]);  
+    data.append('image', imageFile[i]);
   }
 
   axios.post(`${__PATH}/uploadSingle/`, data, {
@@ -48,11 +55,14 @@ export const uploadImage = imageFile => new Promise((resolve, reject) => {
     })
     .catch(err => {
       console.log(err);
+      if (err && err.response && err.response.status === 401) {
+        redirect(history);
+      }
       reject();
     });
 });
 
-export const deleteImages = data => new Promise((resolve, reject) => {
+export const deleteImages = (data, history) => new Promise((resolve, reject) => {
   axios.delete(`${__PATH}/deleteMultipleImages/`, {
     headers: {'Authorization': `Bearer: ${sessionStorage.getItem('access_token')}`},
     data
@@ -66,6 +76,9 @@ export const deleteImages = data => new Promise((resolve, reject) => {
     })
     .catch(err => {
       console.log(err);
+      if (err && err.response && err.response.status === 401) {
+        redirect(history);
+      }
       reject({
         type: ImageActionTypes.DELETE_IMAGES,
         data: []
@@ -80,7 +93,7 @@ export const selectImage = id => {
   };
 };
 
-export const downloadOriginalImage = id => new Promise((resolve, reject) => {
+export const downloadOriginalImage = (id, history) => new Promise((resolve, reject) => {
   axios.get(`${__PATH}/getImageById/${id}`, {
     headers: {'Authorization': `Bearer: ${sessionStorage.getItem('access_token')}`}
   })
@@ -95,6 +108,9 @@ export const downloadOriginalImage = id => new Promise((resolve, reject) => {
       });
     })
     .catch(err => {
+      if (err && err.response && err.response.status === 401) {
+        redirect(history);
+      }
       reject(err);
     });
 });
