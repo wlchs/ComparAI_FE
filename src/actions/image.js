@@ -11,7 +11,7 @@ export const syncImages = history => new Promise((resolve, reject) => {
   let images = [];
 
   axios.get(`${__PATH}/getImagesByCategory/`, {
-    headers: {'Authorization': `Bearer: ${sessionStorage.getItem('access_token')}`}
+    headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
     .then(response => {
       console.log(response);
@@ -45,7 +45,7 @@ export const uploadImage = (imageFile, history) => new Promise((resolve, reject)
   }
 
   axios.post(`${__PATH}/uploadSingle/`, data, {
-    headers: {'Authorization': `Bearer: ${sessionStorage.getItem('access_token')}`}
+    headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
     .then(response => {
       console.log(response);
@@ -64,7 +64,7 @@ export const uploadImage = (imageFile, history) => new Promise((resolve, reject)
 
 export const deleteImages = (data, history) => new Promise((resolve, reject) => {
   axios.delete(`${__PATH}/deleteMultipleImages/`, {
-    headers: {'Authorization': `Bearer: ${sessionStorage.getItem('access_token')}`},
+    headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`},
     data
   })
     .then(response => {
@@ -95,7 +95,7 @@ export const selectImage = id => {
 
 export const downloadOriginalImage = (id, history) => new Promise((resolve, reject) => {
   axios.get(`${__PATH}/getImageById/${id}`, {
-    headers: {'Authorization': `Bearer: ${sessionStorage.getItem('access_token')}`}
+    headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
     .then(response => {
       console.log(response);
