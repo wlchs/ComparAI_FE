@@ -38,7 +38,7 @@ export default class Login extends Component {
 
     axios.post(`${__PATH}/auth`, {
       userId: this.state.email,
-      password_hash: this.state.password
+      password: this.state.password
     })
     .then(response => {
       console.log(response);

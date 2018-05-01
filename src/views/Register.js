@@ -31,7 +31,7 @@ export default class Register extends Component {
 
     axios.post(`${__PATH}/register`, {
       userId: this.state.email,
-      password_hash: this.state.password,
+      password: this.state.password,
       code: this.state.code
     })
     .then(response => {

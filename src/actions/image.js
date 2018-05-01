@@ -44,7 +44,7 @@ export const uploadImage = (imageFile, history) => new Promise((resolve, reject)
     data.append('image', imageFile[i]);
   }
 
-  axios.post(`${__PATH}/uploadSingle/`, data, {
+  axios.post(`${__PATH}/upload/`, data, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
     .then(response => {
