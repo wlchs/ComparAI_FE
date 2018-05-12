@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import __PATH from '../environments';
 
 import Navbar from '../components/Navbar';
 import LoginFormComponent from '../components/LoginFormComponent';
@@ -29,26 +27,11 @@ export default class Login extends Component {
     }
   }
 
-  login() {
-    this.props.history.push('/photos');
-  }
-
   handleSubmit(event) {
     event.preventDefault();
-
-    axios.post(`${__PATH}/auth`, {
-      userId: this.state.email,
-      password: this.state.password
-    })
-    .then(response => {
-      console.log(response);
-      sessionStorage.setItem('access_token', response.data.token);
-      this.login();
-    })
-    .catch(err => {
-      console.log(err);
-      // notification
-    });
+    this.props.login(this.state)
+      .then(() => this.props.history.push('/photos'))
+      .catch(err => console.log(err));
   }
 
   handleEmail(event) {

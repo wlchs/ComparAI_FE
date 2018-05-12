@@ -12,6 +12,7 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ImageActionCreators from './actions/image';
+import * as UserActionCreators from './actions/user';
 
 import Login from './views/Login';
 import Register from './views/Register';
@@ -68,6 +69,7 @@ class App extends Component {
 
             <Route path='/login' render={ props => (
               <Login {...props}
+                login={UserActionCreators.login}
                 clearCache={clearCache} />
             )}/>
 
