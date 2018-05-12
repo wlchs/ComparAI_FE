@@ -7,35 +7,37 @@ const redirect = history => {
   history.push('/');
 }
 
-export const syncImages = history => new Promise((resolve, reject) => {
-  let images = [];
+const formatResultImages = images => {
+  return images.map(image => {
+    const data = new Buffer(image.thumbnail, 'binary').toString('base64');
+    return {
+      ...image,
+      selected: false,
+      data: `data:${image.contentType};base64,${data}`
+    };
+  });
+};
 
+export const syncImages = history => new Promise((resolve, reject) => {
   axios.get(`${__PATH}/getImagesByCategory/`, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
     .then(response => {
       console.log(response);
-
-      images = response.data.images.map(image => {
-        const data = new Buffer(image.thumbnail, 'binary').toString('base64');
-        return {
-          ...image,
-          selected: false,
-          data: `data:${image.contentType};base64,${data}`
-        };
+      return formatResultImages(response.data.images);
+    })
+    .then(images => {
+      return resolve({
+        type: ImageActionTypes.SYNC_IMAGES,
+        images
       });
     })
     .catch(err => {
       if (err && err.response && err.response.status === 401) {
-        redirect(history);
+        return redirect(history);
       }
+      return reject(err);
     })
-    .finally(() => {
-      resolve({
-        type: ImageActionTypes.SYNC_IMAGES,
-        images
-      });
-    });
 });
 
 export const uploadImage = (imageFile, history) => new Promise((resolve, reject) => {
@@ -44,21 +46,18 @@ export const uploadImage = (imageFile, history) => new Promise((resolve, reject)
     data.append('image', imageFile[i]);
   }
 
-  let images = [];
-
   axios.post(`${__PATH}/upload/`, data, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
     .then(response => {
       console.log(response);
 
-      images = response.data.images.map(image => {
-        const data = new Buffer(image.thumbnail, 'binary').toString('base64');
-        return {
-          ...image,
-          selected: false,
-          data: `data:${image.contentType};base64,${data}`
-        };
+      return formatResultImages(response.data.images);
+    })
+    .then(images => {
+      return resolve({
+        type: ImageActionTypes.UPLOAD_IMAGE,
+        images
       });
     })
     .catch(err => {
@@ -66,14 +65,8 @@ export const uploadImage = (imageFile, history) => new Promise((resolve, reject)
       if (err && err.response && err.response.status === 401) {
         redirect(history);
       }
-      reject();
-    })
-    .finally(() => {
-      resolve({
-        type: ImageActionTypes.UPLOAD_IMAGE,
-        images
-      });
-    });;
+      return reject();
+    });
 });
 
 export const updateImage = (data, history) => new Promise((resolve, reject) => {
