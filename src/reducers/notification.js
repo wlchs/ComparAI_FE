@@ -4,7 +4,7 @@ const initialState = {
   notification: {
     text: undefined,
     type: undefined,
-    enabled: false
+    remaining: 0
   }
 };
 
@@ -17,7 +17,7 @@ export default function Image(state=Object.assign(initialState, {}), action) {
       notification: {
         text: action.notificationProps.text,
         type: action.notificationProps.type,
-        enabled: true
+        remaining: 3000
       }
     };
 
@@ -25,11 +25,20 @@ export default function Image(state=Object.assign(initialState, {}), action) {
     return {
       ...state,
       notification: {
-        enabled: false
+        remaining: 0
+      }
+    };
+
+    case NotificationActionTypes.TIME:
+    return {
+      ...state,
+      notification: {
+        ...state.notification,
+        remaining: state.notification.remaining - 1000
       }
     };
 
     default:
-      return initialState;
+    return state;
   }
 };

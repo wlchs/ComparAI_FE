@@ -12,3 +12,9 @@ export const hide = () => {
     type: NotificationActionTypes.HIDE,
   };
 };
+
+export const time = () => {
+  return {
+    type: NotificationActionTypes.TIME
+  };
+};

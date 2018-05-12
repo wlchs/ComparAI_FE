@@ -59,6 +59,7 @@ class App extends Component {
 
     const sendNotification = bindActionCreators(NotificationActionCreators.send, dispatch);
     const hideNotification = bindActionCreators(NotificationActionCreators.hide, dispatch);
+    const timeNotification = bindActionCreators(NotificationActionCreators.time, dispatch);
 
     const loadContent = () => {
       this.toggleLoading(true);
@@ -136,8 +137,9 @@ class App extends Component {
         <NotificationComponent
           text={store.notification.notification.text}
           type={store.notification.notification.type}
-          enabled={store.notification.notification.enabled}
-          hide={hideNotification} />
+          remaining={store.notification.notification.remaining}
+          hide={hideNotification}
+          time={timeNotification} />
         {this.state.loading ?
           <div className="loadingSpinner">
             <PulseLoader
