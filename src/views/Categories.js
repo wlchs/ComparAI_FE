@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Navbar from '../components/Navbar';
+import NavbarComponent from '../components/NavbarComponent';
 import CategoryCard from '../components/CategoryCard';
 
 export default class Categories extends Component {
@@ -83,7 +83,7 @@ export default class Categories extends Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <NavbarComponent />
         <div className="images">
           {this.state.categories.map(category =>
             <CategoryCard key={category.category}

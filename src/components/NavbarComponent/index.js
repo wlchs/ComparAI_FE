@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './styles.css';
 
-const Navbar = props => {
+const NavbarComponent = props => {
   return (
     <div className="navbar">
       <div className="link_group">
@@ -37,4 +37,4 @@ const Navbar = props => {
   );
 };
 
-export default Navbar;
+export default NavbarComponent;

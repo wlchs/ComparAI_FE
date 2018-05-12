@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Navbar from '../components/Navbar';
+import NavbarComponent from '../components/NavbarComponent';
 
 export default class Evaluate extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ export default class Evaluate extends Component {
 
     return (
       <div>
-        <Navbar />
+        <NavbarComponent />
         {selectedImage ?
           <div className="container">
             <div></div>

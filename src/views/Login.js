@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Navbar from '../components/Navbar';
+import NavbarComponent from '../components/NavbarComponent';
 import LoginFormComponent from '../components/LoginFormComponent';
 
 export default class Login extends Component {
@@ -49,7 +49,7 @@ export default class Login extends Component {
   render() {
     return (
       <div>
-        <Navbar disabled/>
+        <NavbarComponent disabled/>
         <LoginFormComponent
           handleEmail={this.handleEmail}
           handlePassword={this.handlePassword}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import __PATH from '../environments';
 
-import Navbar from '../components/Navbar';
+import NavbarComponent from '../components/NavbarComponent';
 import RegisterFormComponent from '../components/RegisterFormComponent';
 
 export default class Register extends Component {
@@ -65,7 +65,7 @@ export default class Register extends Component {
   render() {
     return (
       <div>
-        <Navbar disabled/>
+        <NavbarComponent disabled/>
         <RegisterFormComponent
           handleEmail={this.handleEmail}
           handlePassword={this.handlePassword}
