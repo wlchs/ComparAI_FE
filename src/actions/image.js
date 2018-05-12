@@ -44,13 +44,21 @@ export const uploadImage = (imageFile, history) => new Promise((resolve, reject)
     data.append('image', imageFile[i]);
   }
 
+  let images = [];
+
   axios.post(`${__PATH}/upload/`, data, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
     .then(response => {
       console.log(response);
-      resolve({
-        type: ImageActionTypes.UPLOAD_IMAGE,
+
+      images = response.data.images.map(image => {
+        const data = new Buffer(image.thumbnail, 'binary').toString('base64');
+        return {
+          ...image,
+          selected: false,
+          data: `data:${image.contentType};base64,${data}`
+        };
       });
     })
     .catch(err => {
@@ -59,7 +67,13 @@ export const uploadImage = (imageFile, history) => new Promise((resolve, reject)
         redirect(history);
       }
       reject();
-    });
+    })
+    .finally(() => {
+      resolve({
+        type: ImageActionTypes.UPLOAD_IMAGE,
+        images
+      });
+    });;
 });
 
 export const updateImage = (data, history) => new Promise((resolve, reject) => {

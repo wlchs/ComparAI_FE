@@ -28,7 +28,7 @@ export default class Photos extends Component {
   uploadNew(imageFile) {
     this.props.toggleLoading(true);
     this.props.uploadImage(imageFile, this.props.history)
-      .then(() => this.props.loadContent())
+      .then(action => this.props.dispatch(action))
       .finally(() => this.props.toggleLoading(false));
   }
 

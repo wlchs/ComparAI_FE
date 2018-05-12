@@ -17,6 +17,11 @@ export default function Image(state=initialState, action) {
       list: action.images
     });
 
+    case ImageActionTypes.UPLOAD_IMAGE:
+    return Object.assign({}, state, {
+      list: [...state.list, ...action.images]
+    });
+
     case ImageActionTypes.UPDATE_IMAGE:
     const id_1 = state.list.map(image => image.id).indexOf(action.id);
     return Object.assign({}, state, {
