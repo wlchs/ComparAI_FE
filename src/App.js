@@ -19,6 +19,7 @@ import Logout from './views/Logout';
 import Photos from './views/Photos';
 import Categories from './views/Categories';
 import Compare from './views/Compare';
+import Evaluate from './views/Evaluate';
 
 class App extends Component {
   static propTypes = {
@@ -101,6 +102,17 @@ class App extends Component {
 
             <Route path='/compare/:id?' render={ props => (
               <Compare {...props}
+                loadContent={loadContent}
+                changeCategory={changeCategory}
+                downloadOriginalImage={ImageActionCreators.downloadOriginalImage}
+                hqImage={images.hqImage}
+                dispatch={dispatch}
+                images={images.list}
+                toggleLoading={this.toggleLoading} />
+            )}/>
+
+            <Route path='/evaluate' render={ props => (
+              <Evaluate {...props}
                 loadContent={loadContent}
                 changeCategory={changeCategory}
                 downloadOriginalImage={ImageActionCreators.downloadOriginalImage}
