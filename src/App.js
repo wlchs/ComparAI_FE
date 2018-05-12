@@ -47,7 +47,7 @@ class App extends Component {
   }
 
   toRegister() {
-    this.props.push('/register');
+    this.props.history.push('/register');
   }
 
   render() {
@@ -63,7 +63,7 @@ class App extends Component {
 
     const loadContent = () => {
       this.toggleLoading(true);
-      ImageActionCreators.syncImages()
+      ImageActionCreators.syncImages(this.props.history, sendNotification)
         .then(action => this.props.dispatch(action))
         .finally(() => this.toggleLoading(false));
     }
@@ -92,8 +92,8 @@ class App extends Component {
             <Route path='/photos' render={ props => (
               <Photos {...props}
                 loadContent={loadContent}
-                uploadImage={ImageActionCreators.uploadImage}
-                deleteImages={ImageActionCreators.deleteImages}
+                uploadImage={(img, history) => ImageActionCreators.uploadImage(img, history, sendNotification)}
+                deleteImages={(data, history) => ImageActionCreators.deleteImages(data, history, sendNotification)}
                 changeCategory={changeCategory}
                 selectedCategory={store.images.selectedCategory}
                 selectImage={selectImage}
@@ -114,7 +114,7 @@ class App extends Component {
               <Compare {...props}
                 loadContent={loadContent}
                 changeCategory={changeCategory}
-                downloadOriginalImage={ImageActionCreators.downloadOriginalImage}
+                downloadOriginalImage={(id, history) => ImageActionCreators.downloadOriginalImage(id, history, sendNotification)}
                 hqImage={store.images.hqImage}
                 dispatch={dispatch}
                 images={store.images.list}
@@ -125,7 +125,7 @@ class App extends Component {
               <Evaluate {...props}
                 loadContent={loadContent}
                 changeCategory={changeCategory}
-                downloadOriginalImage={ImageActionCreators.downloadOriginalImage}
+                downloadOriginalImage={(id, history) => ImageActionCreators.downloadOriginalImage(id, history, sendNotification)}
                 hqImage={store.images.hqImage}
                 dispatch={dispatch}
                 images={store.images.list}

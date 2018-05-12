@@ -18,21 +18,30 @@ const formatResultImages = images => {
   });
 };
 
-export const syncImages = history => new Promise((resolve, reject) => {
+export const syncImages = (history, sendNotification) => new Promise((resolve, reject) => {
   axios.get(`${__PATH}/getImagesByCategory/`, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
     .then(response => {
       console.log(response);
+
       return formatResultImages(response.data.images);
     })
     .then(images => {
+      sendNotification({
+        text: 'Szinkronizálás sikeres!',
+        type: 'info'
+      });
       return resolve({
         type: ImageActionTypes.SYNC_IMAGES,
         images
       });
     })
     .catch(err => {
+      sendNotification({
+        text: 'Szinkronizálás sikertelen!',
+        type: 'error'
+      });
       if (err && err.response && err.response.status === 401) {
         return redirect(history);
       }
@@ -40,7 +49,7 @@ export const syncImages = history => new Promise((resolve, reject) => {
     })
 });
 
-export const uploadImage = (imageFile, history) => new Promise((resolve, reject) => {
+export const uploadImage = (imageFile, history, sendNotification) => new Promise((resolve, reject) => {
   let data = new FormData();
   for (let i = 0; i < imageFile.length; ++i) {
     data.append('image', imageFile[i]);
@@ -55,6 +64,10 @@ export const uploadImage = (imageFile, history) => new Promise((resolve, reject)
       return formatResultImages(response.data.images);
     })
     .then(images => {
+      sendNotification({
+        text: 'Képek sikeresen feltöltve!',
+        type: 'success'
+      });
       return resolve({
         type: ImageActionTypes.UPLOAD_IMAGE,
         images
@@ -62,6 +75,10 @@ export const uploadImage = (imageFile, history) => new Promise((resolve, reject)
     })
     .catch(err => {
       console.log(err);
+      sendNotification({
+        text: err,
+        type: 'error'
+      });
       if (err && err.response && err.response.status === 401) {
         redirect(history);
       }
@@ -94,13 +111,17 @@ export const updateImage = (data, history) => new Promise((resolve, reject) => {
     });
 });
 
-export const deleteImages = (data, history) => new Promise((resolve, reject) => {
+export const deleteImages = (data, history, sendNotification) => new Promise((resolve, reject) => {
   axios.delete(`${__PATH}/deleteMultipleImages/`, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`},
     data
   })
     .then(response => {
       console.log(response);
+      sendNotification({
+        text: 'Kép(ek) sikeresen törölve!',
+        type: 'success'
+      });
       resolve({
         type: ImageActionTypes.DELETE_IMAGES,
         data
@@ -108,6 +129,10 @@ export const deleteImages = (data, history) => new Promise((resolve, reject) => 
     })
     .catch(err => {
       console.log(err);
+      sendNotification({
+        text: 'Hiba a kép(ek) törlése közben!',
+        type: 'error'
+      });
       if (err && err.response && err.response.status === 401) {
         redirect(history);
       }
@@ -125,12 +150,16 @@ export const selectImage = id => {
   };
 };
 
-export const downloadOriginalImage = (id, history) => new Promise((resolve, reject) => {
+export const downloadOriginalImage = (id, history, sendNotification) => new Promise((resolve, reject) => {
   axios.get(`${__PATH}/getImageById/${id}`, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
     .then(response => {
       console.log(response);
+      sendNotification({
+        text: 'Eredeti kép letöltve!',
+        type: 'info'
+      });
       const data = new Buffer(response.data.data, 'binary').toString('base64');
       const hqImage = `data:${response.data.contentType};base64,${data}`;
       resolve({
@@ -140,6 +169,10 @@ export const downloadOriginalImage = (id, history) => new Promise((resolve, reje
       });
     })
     .catch(err => {
+      sendNotification({
+        text: 'Eredeti kép letöltése sikertelen!',
+        type: 'error'
+      });
       if (err && err.response && err.response.status === 401) {
         redirect(history);
       }

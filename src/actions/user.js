@@ -17,7 +17,7 @@ export const login = (userData, sendNotification) => new Promise((resolve, rejec
   })
   .catch(err => {
     sendNotification({
-      text: 'Hibás felhasználónév vagy jelszó!',
+      text: err.message,
       type: 'error'
     });
     reject(err);
