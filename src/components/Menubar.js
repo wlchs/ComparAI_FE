@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Dropdown from './Dropdown';
+import DropdownComponent from './DropdownComponent';
 
 export default class Menubar extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class Menubar extends Component {
   render() {
     return (
       <div className="menu_bar">
-        <Dropdown
+        <DropdownComponent
           selectedCategory={this.props.selectedCategory}
           categories={this.props.categories}
           changeCategory={this.props.changeCategory} />

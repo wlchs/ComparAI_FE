@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import './styles.css';
 
-export default class Dropdown extends Component {
+export default class DropdownComponent extends Component {
   constructor(props) {
     super(props);
 
