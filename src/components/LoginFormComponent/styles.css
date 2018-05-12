@@ -1,0 +1,58 @@
+/**
+ * Login styles
+**/
+.title_bar {
+  border-bottom: 5px solid rgba(0,0,0,0);
+  text-decoration: none;
+  color: inherit;
+  cursor: none;
+  z-index: 10;
+}
+
+.login {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #E8E8E8;
+  width: 60%;
+  border-radius: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .login {
+    width: 99%;
+  }
+}
+
+.username_container {
+  width: 60%;
+  margin: 40px 0 20px 0;
+}
+
+.password_container {
+  width: 60%;
+  margin-top: 20px;
+}
+
+.code_container {
+  width: 60%;
+  margin: 40px 0 20px 0;
+}
+
+.text {
+  font-size: 36px;
+  font-weight: 100;
+  margin: 0;
+}
+
+.login_button.button {
+  margin: 30px 0 20px 0;
+}
+
+.register_button.button {
+  margin-bottom: 20px;
+}
