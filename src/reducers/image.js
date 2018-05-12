@@ -17,6 +17,16 @@ export default function Image(state=initialState, action) {
       list: action.images
     });
 
+    case ImageActionTypes.UPDATE_IMAGE:
+    const id_1 = state.list.map(image => image.id).indexOf(action.id);
+    return Object.assign({}, state, {
+      list: [
+        ...state.list.slice(0, id_1),
+        {...state.list[id_1], decision: action.decision},
+        ...state.list.slice(id_1 + 1),
+      ]
+    });
+
     case ImageActionTypes.SELECT_IMAGE:
     const id = state.list.map(image => image.id).indexOf(action.id);
     return Object.assign({}, state, {

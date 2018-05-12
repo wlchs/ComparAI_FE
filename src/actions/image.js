@@ -62,6 +62,31 @@ export const uploadImage = (imageFile, history) => new Promise((resolve, reject)
     });
 });
 
+export const updateImage = (data, history) => new Promise((resolve, reject) => {
+  axios.put(`${__PATH}/update/${data.id}`, {
+  	serviceProvider: data.serviceProvider,
+  	categoryName: data.categoryName,
+  	decision: data.decision
+  }, {
+    headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
+  })
+    .then(response => {
+      console.log(response);
+      resolve({
+        type: ImageActionTypes.UPDATE_IMAGE,
+        decision: data.decision,
+        id: data.id
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      if (err && err.response && err.response.status === 401) {
+        redirect(history);
+      }
+      reject();
+    });
+});
+
 export const deleteImages = (data, history) => new Promise((resolve, reject) => {
   axios.delete(`${__PATH}/deleteMultipleImages/`, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`},
