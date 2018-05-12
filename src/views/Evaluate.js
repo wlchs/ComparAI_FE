@@ -58,6 +58,7 @@ export default class Evaluate extends Component {
                 <div className="info_row">Dátum: {selectedImage.date.split('T')[0]}</div>
               </div>
               <div className="categories">
+                {selectedProvider}
                 {selectedLabel}
               </div>
             </div>

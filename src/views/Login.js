@@ -21,7 +21,7 @@ export default class Login extends Component {
 
   componentDidMount() {
     if (this.access_token) {
-      this.login();
+      this.props.history.push('/photos');
     } else {
       this.props.clearCache();
     }

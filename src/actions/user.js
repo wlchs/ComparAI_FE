@@ -1,4 +1,3 @@
-import * as UserActionTypes from '../actiontypes/user';
 import axios from 'axios';
 import __PATH from '../environments';
 
