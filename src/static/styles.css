@@ -103,64 +103,6 @@ input:focus {
 }
 
 /**
- * Notification styles
-**/
-#notification_container {
-  position: absolute;
-  width: 100%;
-  height: 95px;
-  top: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-#notification {
-  width: 886px;
-  height: 95px;
-  z-index: 10;
-
-  border: 1px solid #E8E8E8;
-  border-radius: 0 0 100px 100px;
-
-  font-size: 24px;
-  font-weight: 100;
-  color: #fff;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  animation: 0.3s ease-out 0s 1 slideInFromTop;
-}
-
-@keyframes slideInFromTop {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-#notification.error {
-  background-color: #D9534F;
-}
-
-#notification.warning {
-  background-color: #F0AD4E;
-}
-
-#notification.info {
-  background-color: #5BC0DE;
-}
-
-#notification.success {
-  background-color: #5CB85C;
-}
-
-/**
  * Photos styles
 **/
 

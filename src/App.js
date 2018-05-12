@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ImageActionCreators from './actions/image';
 import * as UserActionCreators from './actions/user';
+import * as NotificationActionCreators from './actions/notification';
 
 import Login from './views/Login';
 import Register from './views/Register';
@@ -22,9 +23,11 @@ import Categories from './views/Categories';
 import Compare from './views/Compare';
 import Evaluate from './views/Evaluate';
 
+import NotificationComponent from './components/NotificationComponent';
+
 class App extends Component {
   static propTypes = {
-    images: propTypes.object.isRequired
+    store: propTypes.object.isRequired
   };
 
   constructor(props) {
@@ -49,10 +52,13 @@ class App extends Component {
 
   render() {
 
-    const {dispatch, images} = this.props;
+    const {dispatch, store} = this.props;
     const changeCategory = bindActionCreators(ImageActionCreators.setSelectedCategory, dispatch);
     const selectImage = bindActionCreators(ImageActionCreators.selectImage, dispatch);
     const clearCache = bindActionCreators(ImageActionCreators.clearCache, dispatch);
+
+    const sendNotification = bindActionCreators(NotificationActionCreators.send, dispatch);
+    const hideNotification = bindActionCreators(NotificationActionCreators.hide, dispatch);
 
     const loadContent = () => {
       this.toggleLoading(true);
@@ -69,7 +75,7 @@ class App extends Component {
 
             <Route path='/login' render={ props => (
               <Login {...props}
-                login={UserActionCreators.login}
+                login={userData => UserActionCreators.login(userData, sendNotification)}
                 clearCache={clearCache} />
             )}/>
 
@@ -88,10 +94,10 @@ class App extends Component {
                 uploadImage={ImageActionCreators.uploadImage}
                 deleteImages={ImageActionCreators.deleteImages}
                 changeCategory={changeCategory}
-                selectedCategory={images.selectedCategory}
+                selectedCategory={store.images.selectedCategory}
                 selectImage={selectImage}
                 dispatch={dispatch}
-                images={images.list}
+                images={store.images.list}
                 toggleLoading={this.toggleLoading} />
             )}/>
 
@@ -99,7 +105,7 @@ class App extends Component {
               <Categories {...props}
                 loadContent={loadContent}
                 changeCategory={changeCategory}
-                images={images.list}
+                images={store.images.list}
                 toggleLoading={this.toggleLoading} />
             )}/>
 
@@ -108,9 +114,9 @@ class App extends Component {
                 loadContent={loadContent}
                 changeCategory={changeCategory}
                 downloadOriginalImage={ImageActionCreators.downloadOriginalImage}
-                hqImage={images.hqImage}
+                hqImage={store.images.hqImage}
                 dispatch={dispatch}
-                images={images.list}
+                images={store.images.list}
                 toggleLoading={this.toggleLoading} />
             )}/>
 
@@ -119,14 +125,19 @@ class App extends Component {
                 loadContent={loadContent}
                 changeCategory={changeCategory}
                 downloadOriginalImage={ImageActionCreators.downloadOriginalImage}
-                hqImage={images.hqImage}
+                hqImage={store.images.hqImage}
                 dispatch={dispatch}
-                images={images.list}
+                images={store.images.list}
                 toggleLoading={this.toggleLoading} />
             )}/>
 
           </Switch>
         </BrowserRouter>
+        <NotificationComponent
+          text={store.notification.notification.text}
+          type={store.notification.notification.type}
+          enabled={store.notification.notification.enabled}
+          hide={hideNotification} />
         {this.state.loading ?
           <div className="loadingSpinner">
             <PulseLoader
@@ -142,7 +153,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  images: state
+  store: state
 });
 
 

@@ -5,12 +5,16 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
 import ImageReducer from './reducers/image';
+import NotificationReducer from './reducers/notification';
 
 const store = createStore(
-  ImageReducer,
+  combineReducers({
+    images: ImageReducer,
+    notification: NotificationReducer
+  }),
   window.devToolsExtension && window.devToolsExtension()
 );
 

@@ -1,0 +1,40 @@
+/**
+ * Notification styles
+**/
+.notification {
+  position: fixed;
+  height: 95px;
+  top: 0;
+  z-index: 11;
+
+  margin-left: 50%;
+  padding: 0 50px 0 50px;
+  transform: translateX(-50%);
+
+  border: 1px solid #E8E8E8;
+  border-radius: 0 0 100px 100px;
+
+  font-size: 24px;
+  font-weight: 100;
+  color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notification.error {
+  background-color: #D9534F;
+}
+
+.notification.warning {
+  background-color: #F0AD4E;
+}
+
+.notification.info {
+  background-color: #5BC0DE;
+}
+
+.notification.success {
+  background-color: #5CB85C;
+}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import __PATH from '../environments';
 
-export const login = userData => new Promise((resolve, reject) => {
+export const login = (userData, sendNotification) => new Promise((resolve, reject) => {
   axios.post(`${__PATH}/auth`, {
     userId: userData.email,
     password: userData.password
@@ -12,6 +12,10 @@ export const login = userData => new Promise((resolve, reject) => {
     resolve(response.data.token);
   })
   .catch(err => {
+    sendNotification({
+      text: 'Hibás felhasználónév vagy jelszó!',
+      type: 'error'
+    });
     reject(err);
   });
 });
