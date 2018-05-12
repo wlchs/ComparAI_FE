@@ -161,61 +161,6 @@ input:focus {
 }
 
 /**
- * Navbar styles
-**/
-.navbar {
-  position: fixed;
-  top: -20px;
-  z-index: 10;
-
-  background-color: #F0F0F0;
-
-  width: 100%;
-  border-bottom: 1px solid #979797;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.link_group {
-  display: flex;
-  flex-direction: row;
-  margin: 0 0 0 50px
-}
-
-.nav_element {
-  font-size: 24px;
-  height: 50px;
-  margin-right: 55px;
-  padding-top: 44px;
-  border-bottom: 5px solid rgba(0,0,0,0);
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-
-  transition: border-color 0.2s ease-in;
-}
-
-.nav_element:hover {
-  border-bottom: 5px solid #A8A8A8;
-}
-
-.nav_element.active {
-  border-bottom: 5px solid #4D4D4D;
-}
-
-.nav_element.logout {
-  color: #D9534F;
-  border-bottom: 5px solid rgba(0, 0, 0, 0);
-}
-
-.nav_element.logout:hover {
-  border-bottom: 5px solid #D98784;
-}
-
-/**
  * Photos styles
 **/
 .menu_bar {
