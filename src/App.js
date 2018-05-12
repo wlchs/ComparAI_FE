@@ -74,7 +74,8 @@ class App extends Component {
             )}/>
 
             <Route path='/register' render={ props => (
-              <Register {...props} />
+              <Register {...props}
+                register={UserActionCreators.register} />
             )}/>
 
             <Route path='/logout' render={ props => (

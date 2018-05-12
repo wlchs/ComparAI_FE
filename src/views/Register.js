@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import __PATH from '../environments';
 
 import NavbarComponent from '../components/NavbarComponent';
 import RegisterFormComponent from '../components/RegisterFormComponent';
@@ -22,26 +20,11 @@ export default class Register extends Component {
     this.handlePassword = this.handlePassword.bind(this);
   }
 
-  login() {
-    this.props.history.push('/login');
-  }
-
   handleSubmit(event) {
     event.preventDefault();
-
-    axios.post(`${__PATH}/register`, {
-      userId: this.state.email,
-      password: this.state.password,
-      code: this.state.code
-    })
-    .then(response => {
-      console.log(response);
-      this.login();
-    })
-    .catch(err => {
-      console.log(err);
-      // notification
-    });
+    this.props.register(this.state)
+      .then(() => this.props.history.push('/login'))
+      .catch(err => console.log(err));
   }
 
   handleEmail(event) {

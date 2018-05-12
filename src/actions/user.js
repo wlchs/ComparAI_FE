@@ -16,3 +16,18 @@ export const login = userData => new Promise((resolve, reject) => {
     reject(err);
   });
 });
+
+export const register = userData => new Promise((resolve, reject) => {
+  axios.post(`${__PATH}/register`, {
+    userId: userData.email,
+    password: userData.password,
+    code: userData.code
+  })
+  .then(response => {
+    console.log(response);
+    resolve();
+  })
+  .catch(err => {
+    reject(err);
+  });
+});
