@@ -9,6 +9,10 @@ export const login = (userData, sendNotification) => new Promise((resolve, rejec
   .then(response => {
     console.log(response);
     sessionStorage.setItem('access_token', response.data.token);
+    sendNotification({
+      text: 'Sikeres bejelentkezés!',
+      type: 'success'
+    });
     resolve(response.data.token);
   })
   .catch(err => {
@@ -20,7 +24,7 @@ export const login = (userData, sendNotification) => new Promise((resolve, rejec
   });
 });
 
-export const register = userData => new Promise((resolve, reject) => {
+export const register = (userData, sendNotification) => new Promise((resolve, reject) => {
   axios.post(`${__PATH}/register`, {
     userId: userData.email,
     password: userData.password,
@@ -28,9 +32,17 @@ export const register = userData => new Promise((resolve, reject) => {
   })
   .then(response => {
     console.log(response);
+    sendNotification({
+      text: 'Sikeres regisztráció!',
+      type: 'success'
+    });
     resolve();
   })
   .catch(err => {
+    sendNotification({
+      text: 'Sikertelen regisztráció!',
+      type: 'error'
+    });
     reject(err);
   });
 });
