@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import NavbarComponent from '../components/NavbarComponent';
 import Menubar from '../components/Menubar';
-import ImageCard from '../components/ImageCard';
+import ImageCardComponent from '../components/ImageCardComponent';
 
 export default class Photos extends Component {
 
@@ -101,7 +101,7 @@ export default class Photos extends Component {
           deleteSelected={this.deleteSelected} />
         <div className="images">
           {filteredImages.map(image =>
-            <ImageCard key={image.id}
+            <ImageCardComponent key={image.id}
               id={image.id}
               date={image.date.split('T')[0]}
               img={image.data}

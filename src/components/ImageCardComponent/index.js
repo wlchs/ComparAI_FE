@@ -1,6 +1,7 @@
 import React from 'react';
+import './styles.css';
 
-const ImageCard = props => {
+const ImageCardComponent = props => {
   return (
     <div className="card">
       <img className="image"
@@ -24,4 +25,4 @@ const ImageCard = props => {
   );
 };
 
-export default ImageCard;
+export default ImageCardComponent;
