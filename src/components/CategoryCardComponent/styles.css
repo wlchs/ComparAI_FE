@@ -1,0 +1,17 @@
+/**
+ * Category card styles
+**/
+.mozaik_container {
+  display: flex;
+  flex-wrap: wrap;
+
+  overflow: hidden;
+}
+
+.mozaik {
+  width: 126px;
+  height: 126px;
+
+  pointer-events: none;
+  object-fit: cover;
+}

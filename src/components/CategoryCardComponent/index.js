@@ -1,6 +1,7 @@
 import React from 'react';
+import './styles.css';
 
-const CategoryCard = props => {
+const CategoryCardComponent = props => {
   return (
     <div className="card">
       <div className="image mozaik_container" onClick={() => {props.onClick(props.name)}}>
@@ -23,4 +24,4 @@ const CategoryCard = props => {
   );
 };
 
-export default CategoryCard;
+export default CategoryCardComponent;
