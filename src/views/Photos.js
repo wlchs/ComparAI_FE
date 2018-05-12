@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import NavbarComponent from '../components/NavbarComponent';
-import Menubar from '../components/Menubar';
+import MenubarComponent from '../components/MenubarComponent';
 import ImageCardComponent from '../components/ImageCardComponent';
 
 export default class Photos extends Component {
@@ -93,7 +93,7 @@ export default class Photos extends Component {
     return (
       <div>
         <NavbarComponent />
-        <Menubar
+        <MenubarComponent
           selectedCategory={this.props.selectedCategory}
           changeCategory={this.props.changeCategory}
           categories={categories}

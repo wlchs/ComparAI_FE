@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import DropdownComponent from '../DropdownComponent';
+import './styles.css';
 
-import DropdownComponent from './DropdownComponent';
-
-export default class Menubar extends Component {
+export default class MenubarComponent extends Component {
   constructor(props) {
     super(props);
 
