@@ -1,4 +1,6 @@
 import React from 'react';
+import './styles.css';
+import '../LoginFormComponent/styles.css';
 
 const RegisterFormComponent = props => {
   return (
