@@ -22,11 +22,7 @@ export const syncImages = (history, sendNotification) => new Promise((resolve, r
   axios.get(`${__PATH}/getImagesByCategory/`, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
-    .then(response => {
-      console.log(response);
-
-      return formatResultImages(response.data.images);
-    })
+    .then(response => formatResultImages(response.data.images))
     .then(images => {
       sendNotification({
         text: 'Szinkronizálás sikeres!',
@@ -58,11 +54,7 @@ export const uploadImage = (imageFile, history, sendNotification) => new Promise
   axios.post(`${__PATH}/upload/`, data, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
-    .then(response => {
-      console.log(response);
-
-      return formatResultImages(response.data.images);
-    })
+    .then(response => formatResultImages(response.data.images))
     .then(images => {
       sendNotification({
         text: 'Képek sikeresen feltöltve!',
@@ -74,7 +66,6 @@ export const uploadImage = (imageFile, history, sendNotification) => new Promise
       });
     })
     .catch(err => {
-      console.log(err);
       sendNotification({
         text: err,
         type: 'error'
@@ -82,7 +73,7 @@ export const uploadImage = (imageFile, history, sendNotification) => new Promise
       if (err && err.response && err.response.status === 401) {
         redirect(history);
       }
-      return reject();
+      return reject(err);
     });
 });
 
@@ -94,20 +85,17 @@ export const updateImage = (data, history) => new Promise((resolve, reject) => {
   }, {
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
-    .then(response => {
-      console.log(response);
+    .then(response =>
       resolve({
         type: ImageActionTypes.UPDATE_IMAGE,
         decision: data.decision,
         id: data.id
-      });
-    })
+      }))
     .catch(err => {
-      console.log(err);
       if (err && err.response && err.response.status === 401) {
         redirect(history);
       }
-      reject();
+      return reject(err);
     });
 });
 
@@ -117,18 +105,16 @@ export const deleteImages = (data, history, sendNotification) => new Promise((re
     data
   })
     .then(response => {
-      console.log(response);
       sendNotification({
         text: 'Kép(ek) sikeresen törölve!',
         type: 'success'
       });
-      resolve({
+      return resolve({
         type: ImageActionTypes.DELETE_IMAGES,
         data
       });
     })
     .catch(err => {
-      console.log(err);
       sendNotification({
         text: 'Hiba a kép(ek) törlése közben!',
         type: 'error'
@@ -155,14 +141,13 @@ export const downloadOriginalImage = (id, history, sendNotification) => new Prom
     headers: {'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`}
   })
     .then(response => {
-      console.log(response);
       sendNotification({
         text: 'Eredeti kép letöltve!',
         type: 'info'
       });
       const data = new Buffer(response.data.data, 'binary').toString('base64');
       const hqImage = `data:${response.data.contentType};base64,${data}`;
-      resolve({
+      return resolve({
         type: ImageActionTypes.DOWNLOAD_ORIGINAL_IMAGE,
         id,
         hqImage
@@ -176,7 +161,7 @@ export const downloadOriginalImage = (id, history, sendNotification) => new Prom
       if (err && err.response && err.response.status === 401) {
         redirect(history);
       }
-      reject(err);
+      return reject(err);
     });
 });
 
