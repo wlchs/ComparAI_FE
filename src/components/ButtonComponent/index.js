@@ -12,16 +12,16 @@ const ButtonComponent = props => {
                    props.className,
                    props.small ? 'small' : null
                   )}>
-      {props.text}
+      {props.children}
     </div>
   );
 };
 
 ButtonComponent.propTypes = {
   onClick: propTypes.func.isRequired,
-  text: propTypes.string.isRequired,
   type: propTypes.string.isRequired,
   className: propTypes.string,
+  children: propTypes.object
 };
 
 export default ButtonComponent;

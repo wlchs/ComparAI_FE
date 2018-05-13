@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import DropdownComponent from '../DropdownComponent';
 import './styles.css';
+
+import DropdownComponent from '../DropdownComponent';
+import ButtonComponent from '../ButtonComponent';
 
 export default class MenubarComponent extends Component {
   constructor(props) {
@@ -29,7 +31,10 @@ export default class MenubarComponent extends Component {
           categories={this.props.categories}
           changeCategory={this.props.changeCategory}
           sendNotification={this.props.sendNotification} />
-        <div className="small button success text" onClick={this.openUploader}>
+        <ButtonComponent
+          type='success'
+          small
+          onClick={this.openUploader}>
           Új képek hozzáadása
           <input type="file"
             id="file"
@@ -38,10 +43,13 @@ export default class MenubarComponent extends Component {
             onChange={this.sendFile}
             accept="image/*"
             multiple />
-        </div>
-        <div className="small button error text" onClick={this.props.deleteSelected}>
+        </ButtonComponent>
+        <ButtonComponent
+          type='error'
+          small
+          onClick={this.props.deleteSelected}>
           Kijelöltek törlése
-        </div>
+        </ButtonComponent>
       </div>
     );
   }

@@ -21,15 +21,17 @@ const LoginFormComponent = props => {
           required />
       </div>
       <ButtonComponent
-        text='Bejelentkezés'
         type='success'
         className='login_button'
-        onClick={props.handleSubmit} />
+        onClick={props.handleSubmit}>
+        Bejelentkezés
+      </ButtonComponent>
       <ButtonComponent
-        text='Regisztráció'
         type='error'
         className='register_button'
-        onClick={() => props.history.push('/register')} />
+        onClick={() => props.history.push('/register')}>
+        Regisztráció
+      </ButtonComponent>
     </div>
   );
 };
