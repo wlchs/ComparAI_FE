@@ -12,53 +12,6 @@ body {
   margin: 0;
 }
 
-/**
- * Button styles
-**/
-.button {
-  width: 285px;
-  height: 76px;
-  border: none;
-  border-radius: 20px;
-  background-color: #4D4D4D;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  user-select: none;
-
-  transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-  cursor: pointer;
-}
-
-.button:hover {
-  box-shadow: 0 3px 7px 4px rgba(0,0,0,0.5);
-}
-
-.success.button:hover {
-  background-color: #299C1F;
-}
-
-.success.button:active {
-  background-color: #13450D;
-}
-
-.error.button:hover {
-  background-color: #D9534F;
-}
-
-.error.button:active {
-  background-color: #FF0900;
-}
-
-.small.button {
-  width: 252px;
-  height: 61px;
-
-  font-size: 24px;
-  font-weight: 100;
-}
-
 .loadingSpinner {
   position: fixed;
   top: 50%;
