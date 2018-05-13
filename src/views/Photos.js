@@ -98,7 +98,8 @@ export default class Photos extends Component {
           changeCategory={this.props.changeCategory}
           categories={categories}
           uploadNew={this.uploadNew}
-          deleteSelected={this.deleteSelected} />
+          deleteSelected={this.deleteSelected}
+          sendNotification={this.props.sendNotification} />
         <div className="images">
           {filteredImages.map(image =>
             <ImageCardComponent key={image.id}

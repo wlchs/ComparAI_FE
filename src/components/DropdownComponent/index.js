@@ -41,29 +41,33 @@ export default class DropdownComponent extends Component {
   }
 
   toggleDropdown() {
+    if (!this.state.visible && !this.props.selectedCategory) {
+      this.props.sendNotification({
+        text: 'Kategória szerinti szűréshez kérem használja a "Kategóriák" menüpontot!',
+        type: 'warning'
+      });
+      return;
+    }
     this.setState({
       visible: !this.state.visible
     });
   }
 
-  compare(a, b) {
-    return a.key.toUpperCase() > b.key.toUpperCase() ? 1 :
-      b.key.toUpperCase() > a.key.toUpperCase() ? -1 : 0;
-  }
-
   render() {
     const list =
       <div className="dropdown_frame">
-        <div className="dropdown_element"
-          onClick={() => {
-            this.props.changeCategory("");
-          }} >Összes kategória</div>
-        {this.props.categories.map(category =>
-          <div key={category.name} className="dropdown_element"
-            onClick={() => {
-              this.props.changeCategory(category.name);
-            }} >{category.name}</div>
-        ).sort(this.compare)}
+          {this.props.selectedCategory ?
+            <div>
+              <div className="dropdown_element"
+                onClick={() => {
+                  this.props.changeCategory("");
+                }} >Összes kategória</div>
+              <div key={this.props.selectedCategory} className="dropdown_element"
+                onClick={() => {
+                  this.props.changeCategory(this.props.selectedCategory);
+                }} >{this.props.selectedCategory}
+              </div>
+            </div> : null}
       </div>;
 
     return (

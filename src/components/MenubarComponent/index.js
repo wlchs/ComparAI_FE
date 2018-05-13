@@ -27,7 +27,8 @@ export default class MenubarComponent extends Component {
         <DropdownComponent
           selectedCategory={this.props.selectedCategory}
           categories={this.props.categories}
-          changeCategory={this.props.changeCategory} />
+          changeCategory={this.props.changeCategory}
+          sendNotification={this.props.sendNotification} />
         <div className="small button success text" onClick={this.openUploader}>
           Új képek hozzáadása
           <input type="file"

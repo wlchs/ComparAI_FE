@@ -99,7 +99,8 @@ class App extends Component {
                 selectImage={selectImage}
                 dispatch={dispatch}
                 images={store.images.list}
-                toggleLoading={this.toggleLoading} />
+                toggleLoading={this.toggleLoading}
+                sendNotification={sendNotification} />
             )}/>
 
             <Route path='/categories' render={ props => (
