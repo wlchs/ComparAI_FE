@@ -86,7 +86,8 @@ class App extends Component {
             )}/>
 
             <Route path='/logout' render={ props => (
-              <Logout {...props} />
+              <Logout {...props}
+                sendNotification={sendNotification} />
             )}/>
 
             <Route path='/photos' render={ props => (
