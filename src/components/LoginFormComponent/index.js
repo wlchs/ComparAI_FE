@@ -1,9 +1,11 @@
 import React from 'react';
 import './styles.css';
 
+import ButtonComponent from '../ButtonComponent';
+
 const LoginFormComponent = props => {
   return (
-    <form className="login" onSubmit={props.handleSubmit}>
+    <div className='login'>
       <div className="username_container">
         <p className="text">E-mail:</p>
         <input type="email"
@@ -18,14 +20,17 @@ const LoginFormComponent = props => {
           onChange={props.handlePassword}
           required />
       </div>
-      <input type="submit"
-        value="Bejelentkezés"
-        className="login_button button text success" />
-      <div onClick={() => props.history.push('/register')}
-        className="register_button button text error">
-        Regisztráció
-      </div>
-    </form>
+      <ButtonComponent
+        text='Bejelentkezés'
+        type='success'
+        className='login_button'
+        onClick={props.handleSubmit} />
+      <ButtonComponent
+        text='Regisztráció'
+        type='error'
+        className='register_button'
+        onClick={() => props.history.push('/register')} />
+    </div>
   );
 };
 
