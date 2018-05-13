@@ -7,6 +7,8 @@ class NotificationComponent extends Component {
     this.state = {
       timer: undefined
     };
+
+    this.hide = this.hide.bind(this);
   }
 
   componentDidUpdate() {
@@ -31,20 +33,34 @@ class NotificationComponent extends Component {
     }
   }
 
+  hide() {
+    if (this.state.timer) {
+      clearInterval(this.state.timer);
+      this.props.hide();
+      this.setState({
+        timer: undefined
+      });
+    }
+  }
+
   render() {
     if (this.props.remaining > 0) {
       switch (this.props.type) {
         case 'error': return (
-          <div className="notification error">{this.props.text}</div>
+          <div className="notification error"
+            onClick={this.hide} >{this.props.text}</div>
         );
         case 'warning': return (
-          <div className="notification warning">{this.props.text}</div>
+          <div className="notification warning"
+            onClick={this.hide} >{this.props.text}</div>
         );
         case 'info': return (
-          <div className="notification info">{this.props.text}</div>
+          <div className="notification info"
+            onClick={this.hide} >{this.props.text}</div>
         );
         case 'success': return (
-          <div className="notification success">{this.props.text}</div>
+          <div className="notification success"
+            onClick={this.hide} >{this.props.text}</div>
         );
         default: return null;
       }
