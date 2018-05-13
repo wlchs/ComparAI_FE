@@ -17,7 +17,7 @@ export const login = (userData, sendNotification) => new Promise((resolve, rejec
   })
   .catch(err => {
     sendNotification({
-      text: err.message,
+      text: err.response.data || err.message,
       type: 'error'
     });
     reject(err);
@@ -40,7 +40,7 @@ export const register = (userData, sendNotification) => new Promise((resolve, re
   })
   .catch(err => {
     sendNotification({
-      text: 'Sikertelen regisztráció!',
+      text: err.response.data,
       type: 'error'
     });
     reject(err);
