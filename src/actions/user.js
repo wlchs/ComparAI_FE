@@ -16,7 +16,7 @@ export const login = (userData, sendNotification) => new Promise((resolve, rejec
   })
   .catch(err => {
     sendNotification({
-      text: err.response.data || err.message,
+      text: err.response ? err.response.data : err.message,
       type: 'error'
     });
     return reject(err);
