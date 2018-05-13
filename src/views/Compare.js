@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import NavbarComponent from '../components/NavbarComponent';
-
 export default class Compare extends Component {
   constructor(props) {
     super(props);
@@ -66,7 +64,6 @@ export default class Compare extends Component {
 
     return (
       <div>
-        <NavbarComponent />
         {selectedImage ?
           <div className="container">
             <div className="nav_arrow left" onClick={() => this.navigate(selectedId-1)}>&lt;</div>

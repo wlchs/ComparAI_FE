@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import NavbarComponent from '../components/NavbarComponent';
 import RegisterFormComponent from '../components/RegisterFormComponent';
 
 export default class Register extends Component {
@@ -47,14 +46,11 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div>
-        <NavbarComponent disabled/>
-        <RegisterFormComponent
-          handleEmail={this.handleEmail}
-          handlePassword={this.handlePassword}
-          handleCode={this.handleCode}
-          handleSubmit={this.handleSubmit}/>
-      </div>
+      <RegisterFormComponent
+        handleEmail={this.handleEmail}
+        handlePassword={this.handlePassword}
+        handleCode={this.handleCode}
+        handleSubmit={this.handleSubmit}/>
     );
   }
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import NavbarComponent from '../components/NavbarComponent';
 import LoginFormComponent from '../components/LoginFormComponent';
 
 export default class Login extends Component {
@@ -48,14 +47,11 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div>
-        <NavbarComponent disabled/>
-        <LoginFormComponent
-          handleEmail={this.handleEmail}
-          handlePassword={this.handlePassword}
-          handleSubmit={this.handleSubmit}
-          history={this.props.history} />
-      </div>
+      <LoginFormComponent
+        handleEmail={this.handleEmail}
+        handlePassword={this.handlePassword}
+        handleSubmit={this.handleSubmit}
+        history={this.props.history} />
     );
   }
 }

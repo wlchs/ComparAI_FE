@@ -24,6 +24,7 @@ import Compare from './views/Compare';
 import Evaluate from './views/Evaluate';
 
 import NotificationComponent from './components/NotificationComponent';
+import NavbarComponent from './components/NavbarComponent';
 
 class App extends Component {
   static propTypes = {
@@ -50,8 +51,9 @@ class App extends Component {
     this.props.history.push('/register');
   }
 
-  render() {
 
+
+  render() {
     const {dispatch, store} = this.props;
     const changeCategory = bindActionCreators(ImageActionCreators.setSelectedCategory, dispatch);
     const selectImage = bindActionCreators(ImageActionCreators.selectImage, dispatch);
@@ -75,14 +77,20 @@ class App extends Component {
             <Redirect exact from='/' to='/login'/>
 
             <Route path='/login' render={ props => (
-              <Login {...props}
-                login={userData => UserActionCreators.login(userData, sendNotification)}
-                clearCache={clearCache} />
+              <div>
+                <NavbarComponent disabled />
+                <Login {...props}
+                  login={userData => UserActionCreators.login(userData, sendNotification)}
+                  clearCache={clearCache} />
+              </div>
             )}/>
 
             <Route path='/register' render={ props => (
-              <Register {...props}
-                register={userData => UserActionCreators.register(userData, sendNotification)} />
+              <div>
+                <NavbarComponent />
+                <Register {...props}
+                  register={userData => UserActionCreators.register(userData, sendNotification)} />
+              </div>
             )}/>
 
             <Route path='/logout' render={ props => (
@@ -91,47 +99,59 @@ class App extends Component {
             )}/>
 
             <Route path='/photos' render={ props => (
-              <Photos {...props}
-                loadContent={loadContent}
-                uploadImage={(img, history) => ImageActionCreators.uploadImage(img, history, sendNotification)}
-                deleteImages={(data, history) => ImageActionCreators.deleteImages(data, history, sendNotification)}
-                changeCategory={changeCategory}
-                selectedCategory={store.images.selectedCategory}
-                selectImage={selectImage}
-                dispatch={dispatch}
-                images={store.images.list}
-                toggleLoading={this.toggleLoading}
-                sendNotification={sendNotification} />
+              <div>
+                <NavbarComponent />
+                <Photos {...props}
+                  loadContent={loadContent}
+                  uploadImage={(img, history) => ImageActionCreators.uploadImage(img, history, sendNotification)}
+                  deleteImages={(data, history) => ImageActionCreators.deleteImages(data, history, sendNotification)}
+                  changeCategory={changeCategory}
+                  selectedCategory={store.images.selectedCategory}
+                  selectImage={selectImage}
+                  dispatch={dispatch}
+                  images={store.images.list}
+                  toggleLoading={this.toggleLoading}
+                  sendNotification={sendNotification} />
+              </div>
             )}/>
 
             <Route path='/categories' render={ props => (
-              <Categories {...props}
-                loadContent={loadContent}
-                changeCategory={changeCategory}
-                images={store.images.list}
-                toggleLoading={this.toggleLoading} />
+              <div>
+                <NavbarComponent />
+                <Categories {...props}
+                  loadContent={loadContent}
+                  changeCategory={changeCategory}
+                  images={store.images.list}
+                  toggleLoading={this.toggleLoading} />
+              </div>
             )}/>
 
             <Route path='/compare/:id?' render={ props => (
-              <Compare {...props}
-                loadContent={loadContent}
-                changeCategory={changeCategory}
-                downloadOriginalImage={(id, history) => ImageActionCreators.downloadOriginalImage(id, history, sendNotification)}
-                hqImage={store.images.hqImage}
-                dispatch={dispatch}
-                images={store.images.list}
-                toggleLoading={this.toggleLoading} />
+              <div>
+                <NavbarComponent />
+                <Compare {...props}
+                  loadContent={loadContent}
+                  changeCategory={changeCategory}
+                  downloadOriginalImage={(id, history) => ImageActionCreators.downloadOriginalImage(id, history, sendNotification)}
+                  hqImage={store.images.hqImage}
+                  dispatch={dispatch}
+                  images={store.images.list}
+                  toggleLoading={this.toggleLoading} />
+              </div>
             )}/>
 
             <Route path='/evaluate' render={ props => (
-              <Evaluate {...props}
-                loadContent={loadContent}
-                changeCategory={changeCategory}
-                downloadOriginalImage={(id, history) => ImageActionCreators.downloadOriginalImage(id, history, sendNotification)}
-                hqImage={store.images.hqImage}
-                dispatch={dispatch}
-                images={store.images.list}
-                toggleLoading={this.toggleLoading} />
+              <div>
+                <NavbarComponent />
+                <Evaluate {...props}
+                  loadContent={loadContent}
+                  changeCategory={changeCategory}
+                  downloadOriginalImage={(id, history) => ImageActionCreators.downloadOriginalImage(id, history, sendNotification)}
+                  hqImage={store.images.hqImage}
+                  dispatch={dispatch}
+                  images={store.images.list}
+                  toggleLoading={this.toggleLoading} />
+              </div>
             )}/>
 
           </Switch>

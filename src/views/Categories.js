@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import NavbarComponent from '../components/NavbarComponent';
 import CategoryCardComponent from '../components/CategoryCardComponent';
 
 export default class Categories extends Component {
@@ -82,16 +81,13 @@ export default class Categories extends Component {
 
   render() {
     return (
-      <div>
-        <NavbarComponent />
-        <div className="images">
-          {this.state.categories.map(category =>
-            <CategoryCardComponent key={category.category}
-              name={category.category}
-              images={category.images}
-              onClick={this.changeCategory} />
-          )}
-        </div>
+      <div className="images">
+        {this.state.categories.map(category =>
+          <CategoryCardComponent key={category.category}
+            name={category.category}
+            images={category.images}
+            onClick={this.changeCategory} />
+        )}
       </div>
     );
   }
