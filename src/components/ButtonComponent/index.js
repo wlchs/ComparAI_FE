@@ -21,7 +21,7 @@ ButtonComponent.propTypes = {
   onClick: propTypes.func.isRequired,
   type: propTypes.string.isRequired,
   className: propTypes.string,
-  children: propTypes.object
+  children: propTypes.any
 };
 
 export default ButtonComponent;

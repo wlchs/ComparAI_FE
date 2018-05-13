@@ -2,6 +2,13 @@ import axios from 'axios';
 import __PATH from '../environments';
 
 export const login = (userData, sendNotification) => new Promise((resolve, reject) => {
+  if (!userData.email || !userData.password) {
+    sendNotification({
+      text: 'Töltse ki a hiányzó mezőket!',
+      type: 'error'
+    });
+    return reject(userData);
+  }
   axios.post(`${__PATH}/auth`, {
     userId: userData.email,
     password: userData.password
@@ -16,7 +23,7 @@ export const login = (userData, sendNotification) => new Promise((resolve, rejec
   })
   .catch(err => {
     sendNotification({
-      text: err.response ? err.response.data : err.message,
+      text: 'Hibás felhasználónév vagy jelszó!',
       type: 'error'
     });
     return reject(err);
@@ -24,6 +31,13 @@ export const login = (userData, sendNotification) => new Promise((resolve, rejec
 });
 
 export const register = (userData, sendNotification) => new Promise((resolve, reject) => {
+  if (!userData.email || !userData.password || !userData.code) {
+    sendNotification({
+      text: 'Töltse ki a hiányzó mezőket!',
+      type: 'error'
+    });
+    return reject(userData);
+  }
   axios.post(`${__PATH}/register`, {
     userId: userData.email,
     password: userData.password,
