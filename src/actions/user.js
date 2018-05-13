@@ -7,20 +7,19 @@ export const login = (userData, sendNotification) => new Promise((resolve, rejec
     password: userData.password
   })
   .then(response => {
-    console.log(response);
     sessionStorage.setItem('access_token', response.data.token);
     sendNotification({
       text: 'Sikeres bejelentkezés!',
       type: 'success'
     });
-    resolve(response.data.token);
+    return resolve(response.data.token);
   })
   .catch(err => {
     sendNotification({
       text: err.response.data || err.message,
       type: 'error'
     });
-    reject(err);
+    return reject(err);
   });
 });
 
@@ -31,18 +30,17 @@ export const register = (userData, sendNotification) => new Promise((resolve, re
     code: userData.code
   })
   .then(response => {
-    console.log(response);
     sendNotification({
       text: 'Sikeres regisztráció!',
       type: 'success'
     });
-    resolve();
+    return resolve();
   })
   .catch(err => {
     sendNotification({
       text: err.response.data,
       type: 'error'
     });
-    reject(err);
+    return reject(err);
   });
 });
