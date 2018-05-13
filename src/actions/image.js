@@ -67,7 +67,7 @@ export const uploadImage = (imageFile, history, sendNotification) => new Promise
     })
     .catch(err => {
       sendNotification({
-        text: err,
+        text: 'Kép(ek) feltöltése sikertelen!',
         type: 'error'
       });
       if (err && err.response && err.response.status === 401) {

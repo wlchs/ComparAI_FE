@@ -37,7 +37,10 @@ export default class Photos extends Component {
       .map(image => image.id);
 
     if (!id.length) {
-      return;
+      return this.props.sendNotification({
+        text: 'Nincs kijelölt kép!',
+        type: 'warning'
+      });
     }
 
     const data = { id };
