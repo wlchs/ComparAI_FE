@@ -345,5 +345,5 @@ input:focus {
 }
 
 .categories>ul>li:active {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
