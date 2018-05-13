@@ -21,9 +21,6 @@ const NavbarComponent = props => {
           <NavLink to="/compare" className="nav_element">
             Összehasonlítás
           </NavLink>
-          <NavLink to="/evaluate" className="nav_element">
-            Értékelés (Béta)
-          </NavLink>
         </div>
       }
       {props.disabled ? null :
