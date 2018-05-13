@@ -2,9 +2,11 @@ import React from 'react';
 import './styles.css';
 import '../LoginFormComponent/styles.css';
 
+import ButtonComponent from '../ButtonComponent';
+
 const RegisterFormComponent = props => {
   return (
-    <form className="login" onSubmit={props.handleSubmit}>
+    <div className="login">
       <div className="username_container">
         <p className="text">E-mail:</p>
         <input type="email"
@@ -26,10 +28,13 @@ const RegisterFormComponent = props => {
           onChange={props.handleCode}
           required />
       </div>
-      <input type="submit"
-        value="Regisztráció"
-        className="login_button button text error" />
-    </form>
+      <ButtonComponent
+        type='error'
+        className='login_button'
+        onClick={props.handleSubmit}>
+        Regisztráció
+      </ButtonComponent>
+    </div>
   );
 };
 
