@@ -24,7 +24,7 @@ export default class Register extends Component {
     event.preventDefault();
     this.props.register(this.state)
       .then(() => this.props.history.push('/login'))
-      .catch(err => console.log(err));
+      .catch(err => {});
   }
 
   handleEmail(event) {

@@ -31,7 +31,7 @@ export default class Login extends Component {
     event.preventDefault();
     this.props.login(this.state)
       .then(() => this.props.history.push('/photos'))
-      .catch(err => console.log(err));
+      .catch(err => {});
   }
 
   handleEmail(event) {

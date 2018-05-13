@@ -25,7 +25,7 @@ export default class Evaluate extends Component {
     this.hqImageActualized = true;
     this.props.downloadOriginalImage(id, this.props.history)
       .then(action => this.props.dispatch(action))
-      .catch(err => console.log(err));
+      .catch(err => {});
   }
 
   render() {
