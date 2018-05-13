@@ -87,7 +87,7 @@ class App extends Component {
 
             <Route path='/register' render={ props => (
               <div>
-                <NavbarComponent />
+                <NavbarComponent disabled />
                 <Register {...props}
                   register={userData => UserActionCreators.register(userData, sendNotification)} />
               </div>
