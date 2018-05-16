@@ -78,7 +78,7 @@ export default class Compare extends Component {
                   <ul key={categoryProvider.name}>
                     <b>{categoryProvider.name.toUpperCase()}</b>
                     {categoryProvider.categories.map(category =>
-                      <li key={category.name}
+                      <li key={category.name + categoryProvider.categories.indexOf(category)}
                         onClick={() => this.toPhotos(category.name)}>
                         <div className="name">{category.name}</div><div>&nbsp;-&nbsp;{(category.score*100).toFixed(0)}%</div>
                       </li>
