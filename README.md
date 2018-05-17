@@ -8,3 +8,4 @@ This version of the app has more advanced features:
 - Cancel notification by clicking on it
 - NavbarComponent no longer needs to be included in every view
 - ButtonComponent instead of button divs
+- Should the classification fail, the provider's name must be hidden

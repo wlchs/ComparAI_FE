@@ -74,7 +74,9 @@ export default class Compare extends Component {
                 <div className="info_row">Dátum: {selectedImage.date.split('T')[0]}</div>
               </div>
               <div className="categories">
-                {selectedImage.categories.map(categoryProvider =>
+                {selectedImage.categories
+                  .filter(categoryProvider => categoryProvider.categories.length)
+                  .map(categoryProvider =>
                   <ul key={categoryProvider.name}>
                     <b>{categoryProvider.name.toUpperCase()}</b>
                     {categoryProvider.categories.map(category =>
