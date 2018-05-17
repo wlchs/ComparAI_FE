@@ -1,10 +1,12 @@
 import axios from 'axios';
 import __PATH from '../environments';
 
+const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 export const login = (userData, sendNotification) => new Promise((resolve, reject) => {
-  if (!userData.email || !userData.password) {
+  if (!emailRegex.test(userData.email) || !userData.password) {
     sendNotification({
-      text: 'Töltse ki a hiányzó mezőket!',
+      text: 'A megadott adatok formátuma nem megfelelő!',
       type: 'error'
     });
     return reject(userData);
@@ -31,9 +33,9 @@ export const login = (userData, sendNotification) => new Promise((resolve, rejec
 });
 
 export const register = (userData, sendNotification) => new Promise((resolve, reject) => {
-  if (!userData.email || !userData.password || !userData.code) {
+  if (!emailRegex.test(userData.email) || !userData.password || !userData.code) {
     sendNotification({
-      text: 'Töltse ki a hiányzó mezőket!',
+      text: 'A megadott adatok formátuma nem megfelelő!',
       type: 'error'
     });
     return reject(userData);
