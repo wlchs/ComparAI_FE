@@ -54,7 +54,7 @@ export const register = (userData, sendNotification) => new Promise((resolve, re
   })
   .catch(err => {
     sendNotification({
-      text: err.response.data,
+      text: 'Sikertelen regisztráció!',
       type: 'error'
     });
     return reject(err);
